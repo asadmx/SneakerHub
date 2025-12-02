@@ -59,17 +59,32 @@
 
                 <!-- Payment Information Form Section (Payment Handling Not Started) -->
                 <section class="p-6 border rounded-lg" style="border-color: #FF3D00; background-color: rgba(255,61,0,0.1);">
-                    <h2 class="text-xl font-semibold mb-4" style="color: #FF3D00;">2. Payment Information (Deferred)</h2>
+                    <h2 class="text-xl font-semibold mb-4" style="color: #FF3D00;">2. Payment Information</h2>
                     <p class="text-sm mb-4" style="color: #FF3D00;">
-                        Payment handling logic and API integration are deferred to a future sprint. This is a UI placeholder.
                     </p>
-                    <input type="text" placeholder="Card Number (UI only)" disabled
-                           class="w-full p-3 border rounded-lg" style="border-color: #E5E5E5; background-color: #F5F5F5;">
-                    <div class="mt-4">
-                        <label class="inline-flex items-center" style="color: #222222;">
-                            <input type="checkbox" disabled class="rounded" style="accent-color: #00C853;">
-                            <span class="ml-2">Save Payment Info</span>
-                        </label>
+
+                    <div class="space-y-4">
+                        <input id="card-name" type="text" placeholder="Name on Card" required
+                            class="w-full p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
+
+                        <input id="card-number" type="text" placeholder="Card Number (16 digits)" required
+                            maxlength="16"
+                            class="w-full p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
+
+                        <div class="grid grid-cols-3 gap-4">
+                            <input id="card-expiry" type="text" placeholder="MM/YY" required
+                                class="p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
+                            <input id="card-cvv" type="password" placeholder="CVV" required
+                                maxlength="4"
+                                class="p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
+
+                            <div class="flex items-center">
+                                <label class="inline-flex items-center" style="color: #222222;">
+                                    <input id="save-card" type="checkbox" class="rounded" style="accent-color: #00C853;">
+                                    <span class="ml-2 text-sm">Save Payment Info</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>
