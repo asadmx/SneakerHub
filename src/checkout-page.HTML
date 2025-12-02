@@ -20,8 +20,21 @@
 </head>
 <body style="background-color: #F5F5F5;">
 
+    <!-- Simple nav -->
+    <nav class="bg-primary text-white p-4">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <a href="index.HTML" class="font-bold text-xl">SneakerHub</a>
+            <div class="flex items-center gap-6 text-sm">
+                <a href="cart.html" class="underline hover:opacity-75">Back to Cart</a>
+                <a href="cart.html" class="underline hover:opacity-75">My Cart</a>
+            </div>
+        </div>
+    </nav>
+
     <div id="checkout-page" class="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-lg my-8">
-        <h1 class="text-3xl font-extrabold mb-6 border-b pb-2" style="color: #222222; border-color: #E5E5E5;">Complete Your Order</h1>
+        <h1 class="text-3xl font-extrabold mb-6 border-b pb-2" style="color: #222222; border-color: #E5E5E5;">
+            Complete Your Order
+        </h1>
         
         <div class="grid md:grid-cols-3 gap-8">
             
@@ -32,14 +45,14 @@
                 <section class="p-6 border rounded-lg" style="border-color: #00C853; background-color: rgba(0,200,83,0.1);">
                     <h2 class="text-xl font-semibold mb-4" style="color: #00C853;">1. Shipping Address</h2>
                     <form id="address-form" class="space-y-4">
-                        <input type="text" placeholder="Full Name" required 
+                        <input id="full-name" type="text" placeholder="Full Name" required 
                                class="w-full p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
-                        <input type="text" placeholder="Street Address" required
+                        <input id="street-address" type="text" placeholder="Street Address" required
                                class="w-full p-3 border rounded-lg" style="border-color: #E5E5E5;">
                         <div class="grid grid-cols-3 gap-4">
-                            <input type="text" placeholder="City" required class="p-3 border rounded-lg" style="border-color: #E5E5E5;">
-                            <input type="text" placeholder="State" required class="p-3 border rounded-lg" style="border-color: #E5E5E5;">
-                            <input type="text" placeholder="Zip Code" required class="p-3 border rounded-lg" style="border-color: #E5E5E5;">
+                            <input id="city" type="text" placeholder="City" required class="p-3 border rounded-lg" style="border-color: #E5E5E5;">
+                            <input id="state" type="text" placeholder="State" required class="p-3 border rounded-lg" style="border-color: #E5E5E5;">
+                            <input id="zip" type="text" placeholder="Zip Code" required class="p-3 border rounded-lg" style="border-color: #E5E5E5;">
                         </div>
                     </form>
                 </section>
@@ -61,19 +74,142 @@
                 </section>
             </div>
 
-            <!-- Column 3: Order Summary Placeholder -->
+            <!-- Column 3: Order Summary -->
             <div class="md:col-span-1 p-6 rounded-lg border h-fit" style="background-color: #F5F5F5; border-color: #E5E5E5;">
                 <h2 class="text-xl font-semibold mb-4" style="color: #222222;">Order Summary</h2>
-                <div class="space-y-2 text-sm">
-                    <p class="flex justify-between"><span style="color: #666666;">Subtotal:</span><span class="font-medium" style="color: #222222;">$259.98</span></p>
-                    <p class="flex justify-between border-t pt-2 mt-2 font-bold" style="border-color: #E5E5E5;"><span style="color: #222222;">Total:</span><span style="color: #222222;">$275.50</span></p>
+
+                <!-- Items list -->
+                <div id="order-items" class="space-y-3 text-sm mb-4 max-h-64 overflow-y-auto pr-1">
+                    <!-- Filled by JS -->
                 </div>
-                <button class="mt-6 w-full bg-cta text-white py-3 rounded-lg font-bold hover-bg-cta transition">
-                    Place Order (Placeholder)
+
+                <!-- Totals -->
+                <div class="space-y-2 text-sm">
+                    <p class="flex justify-between">
+                        <span style="color: #666666;">Subtotal:</span>
+                        <span id="order-subtotal" class="font-medium" style="color: #222222;">$0.00</span>
+                    </p>
+                    <p class="flex justify-between">
+                        <span style="color: #666666;">Estimated Tax (13%):</span>
+                        <span id="order-tax" class="font-medium" style="color: #222222;">$0.00</span>
+                    </p>
+                    <p class="flex justify-between border-t pt-2 mt-2 font-bold" style="border-color: #E5E5E5;">
+                        <span style="color: #222222;">Total:</span>
+                        <span id="order-total" style="color: #222222;">$0.00</span>
+                    </p>
+                </div>
+
+                <button
+                    id="place-order-btn"
+                    class="mt-6 w-full bg-cta text-white py-3 rounded-lg font-bold hover-bg-cta transition"
+                >
+                    Place Order
                 </button>
+
+                <p id="order-message" class="mt-3 text-sm text-accent hidden">
+                    🎉 Thank you! Your order has been placed. A confirmation email will be sent shortly.
+                </p>
             </div>
         </div>
     </div>
 
+    <script>
+        // ---- Helpers ----
+        function parsePrice(priceStr) {
+            const num = Number(priceStr.replace(/[^0-9.-]+/g, ''));
+            return isNaN(num) ? 0 : num;
+        }
+
+        function formatMoney(value) {
+            return '$' + value.toFixed(2);
+        }
+
+        function loadCart() {
+            return JSON.parse(localStorage.getItem('cart') || '[]');
+        }
+
+        // ---- Render order summary from cart ----
+        function renderOrderSummary() {
+            const cartItems = loadCart();
+
+            // If cart is empty, send user back
+            if (!cartItems.length) {
+                alert('Your cart is empty. Please add items before checking out.');
+                window.location.href = 'cart.html';
+                return;
+            }
+
+            const orderItemsDiv = document.getElementById('order-items');
+            orderItemsDiv.innerHTML = '';
+
+            let subtotal = 0;
+
+            cartItems.forEach(item => {
+                const lineTotal = parsePrice(item.price) * (item.quantity || 1);
+                subtotal += lineTotal;
+
+                const row = document.createElement('div');
+                row.className = 'flex justify-between gap-3';
+
+                row.innerHTML = `
+                    <div class="text-xs">
+                        <p class="font-semibold text-primary text-sm">${item.name}</p>
+                        <p class="text-subtext text-xs">Size: <span class="font-medium">${item.size}</span></p>
+                        <p class="text-subtext text-xs">Qty: <span class="font-medium">${item.quantity || 1}</span></p>
+                    </div>
+                    <div class="text-xs font-medium text-primary">
+                        ${formatMoney(lineTotal)}
+                    </div>
+                `;
+
+                orderItemsDiv.appendChild(row);
+            });
+
+            const tax = subtotal * 0.13;
+            const total = subtotal + tax;
+
+            document.getElementById('order-subtotal').textContent = formatMoney(subtotal);
+            document.getElementById('order-tax').textContent = formatMoney(tax);
+            document.getElementById('order-total').textContent = formatMoney(total);
+        }
+
+        // ---- Place order behaviour ----
+        function setupPlaceOrder() {
+            const placeOrderBtn = document.getElementById('place-order-btn');
+            const addressForm = document.getElementById('address-form');
+            const message = document.getElementById('order-message');
+
+            placeOrderBtn.addEventListener('click', () => {
+                // Basic HTML5 required field validation
+                if (!addressForm.reportValidity()) {
+                    return;
+                }
+
+                // Simulate placing order
+                // In a real app, you'd send this to a backend API.
+                localStorage.removeItem('cart');
+                message.classList.remove('hidden');
+
+                // Optionally redirect home after a short delay
+                setTimeout(() => {
+                    window.location.href = 'index.HTML';
+                }, 2000);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Require login, same idea as other pages
+            const authToken = localStorage.getItem('authToken');
+            if (!authToken) {
+                if (confirm('Please login to complete checkout. Go to login page?')) {
+                    window.location.href = 'user-registration.HTML';
+                }
+                return;
+            }
+
+            renderOrderSummary();
+            setupPlaceOrder();
+        });
+    </script>
 </body>
 </html>
