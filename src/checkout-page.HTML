@@ -39,12 +39,12 @@
         <div class="grid md:grid-cols-3 gap-8">
             
             <!-- Column 1 & 2: Forms (Address and Payment) -->
-            <div class="md:col-span-2 space-y-8">
+            <form id="checkout-form" class="md:col-span-2 space-y-8">
                 
                 <!-- Shipping Address Form Section -->
                 <section class="p-6 border rounded-lg" style="border-color: #00C853; background-color: rgba(0,200,83,0.1);">
                     <h2 class="text-xl font-semibold mb-4" style="color: #00C853;">1. Shipping Address</h2>
-                    <form id="address-form" class="space-y-4">
+                    <div class="space-y-4">
                         <input id="full-name" type="text" placeholder="Full Name" required 
                                class="w-full p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
                         <input id="street-address" type="text" placeholder="Street Address" required
@@ -54,7 +54,7 @@
                             <input id="state" type="text" placeholder="State" required class="p-3 border rounded-lg" style="border-color: #E5E5E5;">
                             <input id="zip" type="text" placeholder="Zip Code" required class="p-3 border rounded-lg" style="border-color: #E5E5E5;">
                         </div>
-                    </form>
+                    </div>
                 </section>
 
                 <!-- Payment Information Form Section (Payment Handling Not Started) -->
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                 </section>
-            </div>
+            </form>
 
             <!-- Column 3: Order Summary -->
             <div class="md:col-span-1 p-6 rounded-lg border h-fit" style="background-color: #F5F5F5; border-color: #E5E5E5;">
@@ -191,12 +191,12 @@
         // ---- Place order behaviour ----
         function setupPlaceOrder() {
             const placeOrderBtn = document.getElementById('place-order-btn');
-            const addressForm = document.getElementById('address-form');
+            const checkoutForm = document.getElementById('checkout-form');
             const message = document.getElementById('order-message');
 
             placeOrderBtn.addEventListener('click', () => {
                 // Basic HTML5 required field validation
-                if (!addressForm.reportValidity()) {
+                if (!checkoutForm.reportValidity()) {
                     return;
                 }
 
