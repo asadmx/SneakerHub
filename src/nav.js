@@ -1,0 +1,47 @@
+function updateNavigation() {
+    const authToken = localStorage.getItem('authToken');
+    const userEmail = localStorage.getItem('userEmail');
+
+    const loginLink  = document.getElementById('login-link');
+    const logoutBtn  = document.getElementById('logout-btn');
+    const ordersLink = document.getElementById('orders-link');
+    const cartLink   = document.getElementById('cart-link');
+
+    if (authToken && userEmail) {
+        // User is logged in
+        if (loginLink) loginLink.classList.add('hidden');
+        if (logoutBtn) logoutBtn.classList.remove('hidden');
+
+        // Optional: highlight My Orders / My Cart when logged in
+        if (ordersLink) ordersLink.classList.add('font-semibold');
+        if (cartLink)   cartLink.classList.add('font-semibold');
+    } else {
+        // User is not logged in
+        if (loginLink) loginLink.classList.remove('hidden');
+        if (logoutBtn) logoutBtn.classList.add('hidden');
+        if (ordersLink) ordersLink.classList.remove('font-semibold');
+        if (cartLink)   cartLink.classList.remove('font-semibold');
+    }
+}
+
+function setupLogout() {
+    const logoutBtn = document.getElementById('logout-btn');
+    if (!logoutBtn) return;
+
+    logoutBtn.addEventListener('click', () => {
+        if (confirm('Are you sure you want to logout?')) {
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('userEmail');
+            updateNavigation();
+            // Send them to login or home
+            window.location.href = 'user-registration.HTML';
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    updateNavigation();
+    setupLogout();
+});
+
+

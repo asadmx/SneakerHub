@@ -252,9 +252,6 @@
             });
         }
 
-        
-
-        // Product data for the modal
         const products = {
             'Nike Dunks: Panda': {
                 name: 'Nike Dunks: Panda',
@@ -290,7 +287,6 @@
   function openProductPage(productId) {
         const authToken = localStorage.getItem('authToken');
 
-        // If not logged in, send to login page
         if (!authToken) {
             if (confirm('Please login to view product details. Would you like to go to the login page?')) {
                 window.location.href = 'user-registration.HTML';
@@ -298,7 +294,6 @@
             return;
         }
 
-        // Go to product details page with query parameter
         window.location.href = 'product.html?id=' + encodeURIComponent(productId);
     }
 
