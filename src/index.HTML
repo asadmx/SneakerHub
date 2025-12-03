@@ -28,17 +28,40 @@
     <!-- Navigation Header -->
     <nav class="bg-primary text-white p-4 shadow-lg">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
+        
+            <!-- Left: Logo -->
             <h1 class="text-2xl font-bold">SneakerHub</h1>
-            <div class="space-x-4">
-                <a href="index.HTML" class="font-semibold">Home</a>
-                <a href="search-products.HTML" class="hover-text-accent" style="color: rgba(255,255,255,0.8);">Search</a>
-                <a href="order-tracking.HTML" class="hover-text-accent" style="color: rgba(255,255,255,0.8);" id="orders-link">My Orders</a>
-                <a href="cart.HTML" class="hover-text-accent" style="color: rgba(255,255,255,0.8);" id="cart-link">My Cart</a>
-                <a href="user-registration.HTML" class="hover-text-accent" style="color: rgba(255,255,255,0.8);" id="login-link">Login</a>
-                <button id="logout-btn" class="hidden bg-cta px-4 py-2 rounded hover-bg-cta text-white">Logout</button>
+
+            <!-- Right: Nav Links -->
+            <div class="flex items-center space-x-6 text-base">
+                <a href="index.HTML" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                    Home
+                </a>
+
+                <a href="search-products.HTML" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                    Search
+                </a>
+
+                <a href="order-tracking.HTML" id="orders-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                    My Orders
+                </a>
+
+                <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                    My Cart
+                </a>
+
+                <a href="user-registration.HTML" id="login-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                    Login
+                </a>
+
+                <button id="logout-btn"
+                    class="hidden bg-cta px-4 py-2 rounded hover-bg-cta text-white font-semibold">
+                    Logout
+                </button>
             </div>
         </div>
     </nav>
+
 
     <!-- Hero Section -->
     <div class="bg-primary text-white py-16" style="background: linear-gradient(135deg, #111111 0%, #222222 100%);">

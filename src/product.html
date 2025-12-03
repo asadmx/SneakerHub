@@ -46,14 +46,39 @@
 </head>
 <body class="bg-gray-100">
 
-    <nav class="bg-primary text-white p-4">
-        <div class="max-w-5xl mx-auto flex justify-between items-center">
-            <a href="index.HTML" class="font-bold text-xl">SneakerHub</a>
+    <!-- Navigation Header -->
+    <nav class="bg-primary text-white p-4 shadow-lg">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+        
+            <!-- Left: Logo -->
+            <h1 class="text-2xl font-bold">SneakerHub</h1>
 
-            <!-- Right Side Nav Links -->
-            <div class="flex items-center gap-6 text-sm"> 
-                <a href="cart.HTML" class="text-sm underline">My Cart</a>
-                <a href="index.HTML" class="text-sm underline">Back to Home</a>
+            <!-- Right: Nav Links -->
+            <div class="flex items-center space-x-6 text-base">
+                <a href="index.HTML" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                    Home
+                </a>
+
+                <a href="search-products.HTML" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                    Search
+                </a>
+
+                <a href="order-tracking.HTML" id="orders-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                    My Orders
+                </a>
+
+                <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                    My Cart
+                </a>
+
+                <a href="user-registration.HTML" id="login-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                    Login
+                </a>
+
+                <button id="logout-btn"
+                    class="hidden bg-cta px-4 py-2 rounded hover-bg-cta text-white font-semibold">
+                    Logout
+                </button>
             </div>
         </div>
     </nav>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Checkout Page</title>
+    <title>Checkout - SneakerHub</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -20,13 +20,39 @@
 </head>
 <body style="background-color: #F5F5F5;">
 
-    <!-- Simple nav -->
-    <nav class="bg-primary text-white p-4">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <a href="index.HTML" class="font-bold text-xl">SneakerHub</a>
-            <div class="flex items-center gap-6 text-sm">
-                <a href="cart.html" class="underline hover:opacity-75">Back to Cart</a>
-                <a href="cart.html" class="underline hover:opacity-75">My Cart</a>
+    <!-- Navigation Header -->
+    <nav class="bg-primary text-white p-4 shadow-lg">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+        
+            <!-- Left: Logo -->
+            <h1 class="text-2xl font-bold">SneakerHub</h1>
+
+            <!-- Right: Nav Links -->
+            <div class="flex items-center space-x-6 text-base">
+                <a href="index.HTML" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                    Home
+                </a>
+
+                <a href="search-products.HTML" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                    Search
+                </a>
+
+                <a href="order-tracking.HTML" id="orders-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                    My Orders
+                </a>
+
+                <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                    My Cart
+                </a>
+
+                <a href="user-registration.HTML" id="login-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                    Login
+                </a>
+
+                <button id="logout-btn"
+                    class="hidden bg-cta px-4 py-2 rounded hover-bg-cta text-white font-semibold">
+                    Logout
+                </button>
             </div>
         </div>
     </nav>
@@ -42,42 +68,42 @@
             <div class="md:col-span-2 space-y-8">
                 
                 <!-- Shipping Address Form Section -->
-                <section class="p-6 border rounded-lg" style="border-color: #00C853; background-color: rgba(0,200,83,0.1);">
+                <section class="p-6 border rounded-lg" style="border-color: #00C853; background-color: #E6F9ED;">
                     <h2 class="text-xl font-semibold mb-4" style="color: #00C853;">1. Shipping Address</h2>
                     <form id="address-form" class="space-y-4">
                         <input id="full-name" type="text" placeholder="Full Name" required 
                                class="w-full p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
                         <input id="street-address" type="text" placeholder="Street Address" required
-                               class="w-full p-3 border rounded-lg" style="border-color: #E5E5E5;">
+                               class="w-full p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
                         <div class="grid grid-cols-3 gap-4">
-                            <input id="city" type="text" placeholder="City" required class="p-3 border rounded-lg" style="border-color: #E5E5E5;">
-                            <input id="state" type="text" placeholder="State" required class="p-3 border rounded-lg" style="border-color: #E5E5E5;">
-                            <input id="zip" type="text" placeholder="Zip Code" required class="p-3 border rounded-lg" style="border-color: #E5E5E5;">
+                            <input id="city" type="text" placeholder="City" required class="p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
+                            <input id="state" type="text" placeholder="State" required class="p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
+                            <input id="zip" type="text" placeholder="Zip Code" required class="p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
                         </div>
                     </form>
                 </section>
 
-                <!-- Payment Information Form Section (Payment Handling Not Started) -->
-                <section class="p-6 border rounded-lg" style="border-color: #FF3D00; background-color: rgba(255,61,0,0.1);">
+                <!-- Payment Information Form Section -->
+                <section class="p-6 border rounded-lg" style="border-color: #FF3D00; background-color: #FFE6DE;">
                     <h2 class="text-xl font-semibold mb-4" style="color: #FF3D00;">2. Payment Information</h2>
                     <p class="text-sm mb-4" style="color: #FF3D00;">
+                        This is a simulated payment form for demo purposes only. No real payment is processed.
                     </p>
 
                     <div class="space-y-4">
                         <input id="card-name" type="text" placeholder="Name on Card" required
-                            class="w-full p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
+                               class="w-full p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
 
                         <input id="card-number" type="text" placeholder="Card Number (16 digits)" required
-                            maxlength="16"
-                            class="w-full p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
+                               maxlength="16"
+                               class="w-full p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
 
                         <div class="grid grid-cols-3 gap-4">
                             <input id="card-expiry" type="text" placeholder="MM/YY" required
-                                class="p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
+                                   class="p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
                             <input id="card-cvv" type="password" placeholder="CVV" required
-                                maxlength="4"
-                                class="p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
-
+                                   maxlength="4"
+                                   class="p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
                             <div class="flex items-center">
                                 <label class="inline-flex items-center" style="color: #222222;">
                                     <input id="save-card" type="checkbox" class="rounded" style="accent-color: #00C853;">
@@ -122,14 +148,14 @@
                 </button>
 
                 <p id="order-message" class="mt-3 text-sm text-accent hidden">
-                    🎉 Thank you! Your order has been placed. A confirmation email will be sent shortly.
+                    🎉 Thank you! Your order has been placed.
                 </p>
             </div>
         </div>
     </div>
 
     <script>
-        // ---- Helpers ----
+        // ---------- Helpers ----------
         function parsePrice(priceStr) {
             const num = Number(priceStr.replace(/[^0-9.-]+/g, ''));
             return isNaN(num) ? 0 : num;
@@ -143,7 +169,7 @@
             return JSON.parse(localStorage.getItem('cart') || '[]');
         }
 
-        // ---- Render order summary from cart ----
+        // ---------- Render order summary ----------
         function renderOrderSummary() {
             const cartItems = loadCart();
 
@@ -160,7 +186,8 @@
             let subtotal = 0;
 
             cartItems.forEach(item => {
-                const lineTotal = parsePrice(item.price) * (item.quantity || 1);
+                const qty = item.quantity || 1;
+                const lineTotal = parsePrice(item.price) * qty;
                 subtotal += lineTotal;
 
                 const row = document.createElement('div');
@@ -170,7 +197,7 @@
                     <div class="text-xs">
                         <p class="font-semibold text-primary text-sm">${item.name}</p>
                         <p class="text-subtext text-xs">Size: <span class="font-medium">${item.size}</span></p>
-                        <p class="text-subtext text-xs">Qty: <span class="font-medium">${item.quantity || 1}</span></p>
+                        <p class="text-subtext text-xs">Qty: <span class="font-medium">${qty}</span></p>
                     </div>
                     <div class="text-xs font-medium text-primary">
                         ${formatMoney(lineTotal)}
@@ -188,32 +215,97 @@
             document.getElementById('order-total').textContent = formatMoney(total);
         }
 
-        // ---- Place order behaviour ----
+        // ---------- Mock payment validation ----------
+        function validatePayment() {
+            const cardName = document.getElementById('card-name').value.trim();
+            const cardNumber = document.getElementById('card-number').value.trim();
+            const cardExpiry = document.getElementById('card-expiry').value.trim();
+            const cardCvv = document.getElementById('card-cvv').value.trim();
+
+            if (!cardName || !cardNumber || !cardExpiry || !cardCvv) {
+                alert('Please fill out all payment fields.');
+                return false;
+            }
+
+            if (!/^\d{16}$/.test(cardNumber)) {
+                alert('Card number must be 16 digits.');
+                return false;
+            }
+
+            if (!/^\d{2}\/\d{2}$/.test(cardExpiry)) {
+                alert('Expiry must be in MM/YY format.');
+                return false;
+            }
+
+            if (!/^\d{3,4}$/.test(cardCvv)) {
+                alert('CVV must be 3 or 4 digits.');
+                return false;
+            }
+
+            return true;
+        }
+
+        // ---------- Place order behaviour ----------
         function setupPlaceOrder() {
             const placeOrderBtn = document.getElementById('place-order-btn');
             const addressForm = document.getElementById('address-form');
             const message = document.getElementById('order-message');
 
             placeOrderBtn.addEventListener('click', () => {
-                // Basic HTML5 required field validation
+                // Validate shipping form (HTML5)
                 if (!addressForm.reportValidity()) {
                     return;
                 }
 
-                // Simulate placing order
-                // In a real app, you'd send this to a backend API.
-                localStorage.removeItem('cart');
-                message.classList.remove('hidden');
+                // Validate payment fields (mock)
+                if (!validatePayment()) {
+                    return;
+                }
 
-                // Optionally redirect home after a short delay
+                const cartItems = loadCart();
+                if (!cartItems.length) {
+                    alert('Your cart is empty.');
+                    window.location.href = 'cart.html';
+                    return;
+                }
+
+                // Compute totals
+                const subtotal = cartItems.reduce(
+                    (sum, item) => sum + parsePrice(item.price) * (item.quantity || 1),
+                    0
+                );
+                const tax = subtotal * 0.13;
+                const total = subtotal + tax;
+
+                // Build order object
+                const order = {
+                    id: 'SH-' + Date.now(),
+                    date: new Date().toISOString(),
+                    status: 'Processing',
+                    items: cartItems,
+                    subtotal,
+                    tax,
+                    total
+                };
+
+                // Save order to localStorage
+                const existingOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+                existingOrders.push(order);
+                localStorage.setItem('orders', JSON.stringify(existingOrders));
+
+                // Clear cart
+                localStorage.removeItem('cart');
+
+                // Show message + redirect
+                message.classList.remove('hidden');
                 setTimeout(() => {
-                    window.location.href = 'index.HTML';
-                }, 2000);
+                    window.location.href = 'order-tracking.HTML';
+                }, 1500);
             });
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Require login, same idea as other pages
+            // Optional login check to match rest of app
             const authToken = localStorage.getItem('authToken');
             if (!authToken) {
                 if (confirm('Please login to complete checkout. Go to login page?')) {
