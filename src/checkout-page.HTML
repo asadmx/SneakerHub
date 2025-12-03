@@ -252,13 +252,8 @@
             const message = document.getElementById('order-message');
 
             placeOrderBtn.addEventListener('click', () => {
-<<<<<<< HEAD
                 // Validate shipping form (HTML5)
-                if (!addressForm.reportValidity()) {
-=======
-                // Basic HTML5 required field validation
                 if (!checkoutForm.reportValidity()) {
->>>>>>> 7d397c5c10b36f745fdfedc7ca34613978292339
                     return;
                 }
 
