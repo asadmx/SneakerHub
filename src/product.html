@@ -15,18 +15,21 @@
 
         /* Size button styles */
         .size-btn {
-            padding: 0.45rem 1rem;
+            width: 3rem;
+            height: 3rem;
             border-radius: 999px;
             border: 1px solid #ddd;
-            font-size: 0.875rem;
+            font-size: 0.9rem;
             background-color: #ffffff;
             color: #222222;
             cursor: pointer;
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 0.25rem;
+            justify-content: center;
             transition: all 0.2s ease;
+            position: relative;
         }
+
 
         .size-btn:hover {
             border-color: #00C853;
@@ -38,10 +41,8 @@
             border-color: #00C853;
         }
 
-        .size-btn-check {
-            font-size: 0.85rem;
-            margin-left: 2px;
-        }
+
+
     </style>
 </head>
 <body class="bg-gray-100">
@@ -213,7 +214,6 @@
 
                     // Add to selected button
                     btn.classList.add('size-btn-selected');
-                    btn.querySelector('.size-btn-check').textContent = '✓';
                 });
 
                 sizeContainer.appendChild(btn);
