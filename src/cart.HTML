@@ -122,7 +122,6 @@
         function loadCartFromStorage() {
             const raw = JSON.parse(localStorage.getItem('cart') || '[]');
 
-            // Merge items with same id + size and add image + selected flag
             const merged = [];
             raw.forEach(item => {
                 const keyIndex = merged.findIndex(
@@ -136,9 +135,9 @@
                         name: item.name,
                         price: item.price,
                         size: item.size,
-                        image: item.image,          // keep image
+                        image: item.image,          
                         quantity: item.quantity || 1,
-                        selected: item.selected !== false // default true
+                        selected: item.selected !== false 
                     });
                 }
             });
@@ -189,7 +188,6 @@
                 const row = document.createElement('div');
                 row.className = 'flex flex-col md:flex-row items-center justify-between gap-4 border-b pb-4 last:border-b-0';
 
-                // Left: product info + select checkbox
                 const infoDiv = document.createElement('div');
                 infoDiv.className = 'flex-1';
 
@@ -224,7 +222,6 @@
                     updateTotals();
                 });
 
-                // Middle: quantity controls
                 const qtyDiv = document.createElement('div');
                 qtyDiv.className = 'flex items-center gap-2';
 
@@ -260,7 +257,6 @@
                 qtyDiv.appendChild(qtySpan);
                 qtyDiv.appendChild(plusBtn);
 
-                // Right: line total + remove
                 const rightDiv = document.createElement('div');
                 rightDiv.className = 'flex flex-col items-end gap-2';
 

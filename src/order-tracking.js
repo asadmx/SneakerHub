@@ -1,4 +1,3 @@
-// order-tracking.js
 
 /* ---------- STORAGE HELPERS ---------- */
 function loadOrders() {
@@ -15,11 +14,9 @@ function formatMoney(value) {
 
 /* ---------- USER EMAIL HELPER ---------- */
 function getLoggedInEmail() {
-    // 1) Try explicit saved email
     const saved = localStorage.getItem('userEmail');
     if (saved) return saved;
 
-    // 2) Try to decode from JWT authToken (if you used a JWT)
     const token = localStorage.getItem('authToken');
     if (!token) return 'Guest';
 
@@ -54,7 +51,6 @@ function cancelOrder(orderId) {
 
 /* ---------- TRACK PACKAGE (PLACEHOLDER) ---------- */
 function trackPackage(orderId) {
-    // For now just a placeholder; could open a modal or link to real tracking later
     alert(`Tracking details for order ${orderId} will be available in a future sprint.`);
 }
 
@@ -203,7 +199,7 @@ function setupTabs() {
     tabActive.addEventListener('click', showActive);
     tabHistory.addEventListener('click', showHistory);
 
-    showActive(); // default
+    showActive(); 
 }
 
 /* ---------- INIT ---------- */

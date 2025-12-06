@@ -182,7 +182,6 @@
 
     <!-- Checkout Logic -->
     <script>
-        // ---------- Helpers ----------
         function parsePrice(priceStr) {
             const num = Number(priceStr.replace(/[^0-9.-]+/g, ''));
             return isNaN(num) ? 0 : num;
@@ -284,12 +283,10 @@
             const message = document.getElementById('order-message');
 
             placeOrderBtn.addEventListener('click', () => {
-                // Validate shipping form (HTML5 built-in)
                 if (!checkoutForm.reportValidity()) {
                     return;
                 }
 
-                // Validate payment fields (mock)
                 if (!validatePayment()) {
                     return;
                 }
@@ -301,7 +298,6 @@
                     return;
                 }
 
-                // Compute totals from selected items
                 const subtotal = checkoutItems.reduce(
                     (sum, item) => sum + parsePrice(item.price) * (item.quantity || 1),
                     0
@@ -318,7 +314,6 @@
                     zip: document.getElementById('zip').value.trim()
                 };
 
-                // Build order object (matches order-tracking page expectations)
                 const order = {
                     id: 'SH-' + Date.now(),
                     createdAt: new Date().toISOString(),
@@ -345,7 +340,6 @@
                 );
                 localStorage.setItem('cart', JSON.stringify(remainingCart));
 
-                // Clear temporary selection
                 localStorage.removeItem('checkoutItems');
 
                 // Show message + redirect
@@ -359,7 +353,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Optional login check
             const authToken = localStorage.getItem('authToken');
             if (!authToken) {
                 if (confirm('Please login to complete checkout. Go to login page?')) {
@@ -373,7 +366,6 @@
         });
     </script>
 
-    <!-- Shared nav login/logout logic -->
     <script src="nav.js"></script>
 </body>
 </html>

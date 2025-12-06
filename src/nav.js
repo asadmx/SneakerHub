@@ -12,7 +12,6 @@ function updateNavigation() {
         if (loginLink) loginLink.classList.add('hidden');
         if (logoutBtn) logoutBtn.classList.remove('hidden');
 
-        // Optional: highlight My Orders / My Cart when logged in
         if (ordersLink) ordersLink.classList.add('font-semibold');
         if (cartLink)   cartLink.classList.add('font-semibold');
     } else {
