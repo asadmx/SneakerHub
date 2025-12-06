@@ -16,6 +16,7 @@
         .text-subtext { color: #666666; }
         .text-accent { color: #00C853; }
         .focus-ring-accent:focus { outline: 2px solid #00C853; outline-offset: 2px; }
+        .hover-text-accent:hover { color: #00C853; }
     </style>
 </head>
 <body style="background-color: #F5F5F5;">
@@ -23,44 +24,40 @@
     <!-- Navigation Header -->
     <nav class="bg-primary text-white p-4 shadow-lg">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-        
             <!-- Left: Logo -->
             <a href="index.HTML" class="text-2xl font-bold hover-text-accent">
                 SneakerHub
             </a>
 
-            <!-- Right: Nav Links -->   
+            <!-- Right: Nav Links -->
             <div class="flex items-center space-x-6 text-base">
                 <a href="index.HTML" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     Home
                 </a>
-
                 <a href="search-products.HTML" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     Search
                 </a>
-
                 <a href="order-tracking.HTML" id="orders-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     My Orders
                 </a>
-
                 <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     My Cart
                 </a>
-
                 <a href="user-registration.HTML" id="login-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     Login
                 </a>
-
                 <button id="logout-btn"
-                    class="hidden bg-cta px-4 py-2 rounded hover-bg-cta text-white font-semibold">
+                        class="hidden bg-cta px-4 py-2 rounded hover-bg-cta text-white font-semibold">
                     Logout
                 </button>
             </div>
         </div>
     </nav>
 
+    <!-- Checkout Content -->
     <div id="checkout-page" class="max-w-4xl mx-auto p-6 bg-white rounded-xl shadow-lg my-8">
-        <h1 class="text-3xl font-extrabold mb-6 border-b pb-2" style="color: #222222; border-color: #E5E5E5;">
+        <h1 class="text-3xl font-extrabold mb-6 border-b pb-2"
+            style="color: #222222; border-color: #E5E5E5;">
             Complete Your Order
         </h1>
         
@@ -70,45 +67,64 @@
             <form id="checkout-form" class="md:col-span-2 space-y-8">
                 
                 <!-- Shipping Address Form Section -->
-                <section class="p-6 border rounded-lg" style="border-color: #00C853; background-color: #E6F9ED;">
-                    <h2 class="text-xl font-semibold mb-4" style="color: #00C853;">1. Shipping Address</h2>
+                <section class="p-6 border rounded-lg"
+                         style="border-color: #00C853; background-color: #E6F9ED;">
+                    <h2 class="text-xl font-semibold mb-4" style="color: #00C853;">
+                        1. Shipping Address
+                    </h2>
                     <div class="space-y-4">
                         <input id="full-name" type="text" placeholder="Full Name" required 
-                               class="w-full p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
+                               class="w-full p-3 border rounded-lg focus-ring-accent"
+                               style="border-color: #E5E5E5;">
                         <input id="street-address" type="text" placeholder="Street Address" required
-                               class="w-full p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
+                               class="w-full p-3 border rounded-lg focus-ring-accent"
+                               style="border-color: #E5E5E5;">
                         <div class="grid grid-cols-3 gap-4">
-                            <input id="city" type="text" placeholder="City" required class="p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
-                            <input id="state" type="text" placeholder="State" required class="p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
-                            <input id="zip" type="text" placeholder="Zip Code" required class="p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
+                            <input id="city" type="text" placeholder="City" required
+                                   class="p-3 border rounded-lg focus-ring-accent"
+                                   style="border-color: #E5E5E5;">
+                            <input id="state" type="text" placeholder="State" required
+                                   class="p-3 border rounded-lg focus-ring-accent"
+                                   style="border-color: #E5E5E5;">
+                            <input id="zip" type="text" placeholder="Zip Code" required
+                                   class="p-3 border rounded-lg focus-ring-accent"
+                                   style="border-color: #E5E5E5;">
                         </div>
                     </div>
                 </section>
 
                 <!-- Payment Information Form Section -->
-                <section class="p-6 border rounded-lg" style="border-color: #FF3D00; background-color: #FFE6DE;">
-                    <h2 class="text-xl font-semibold mb-4" style="color: #FF3D00;">2. Payment Information</h2>
+                <section class="p-6 border rounded-lg"
+                         style="border-color: #FF3D00; background-color: #FFE6DE;">
+                    <h2 class="text-xl font-semibold mb-4" style="color: #FF3D00;">
+                        2. Payment Information
+                    </h2>
                     <p class="text-sm mb-4" style="color: #FF3D00;">
                         This is a simulated payment form for demo purposes only. No real payment is processed.
                     </p>
 
                     <div class="space-y-4">
                         <input id="card-name" type="text" placeholder="Name on Card" required
-                               class="w-full p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
+                               class="w-full p-3 border rounded-lg focus-ring-accent"
+                               style="border-color: #E5E5E5;">
 
                         <input id="card-number" type="text" placeholder="Card Number (16 digits)" required
                                maxlength="16"
-                               class="w-full p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
+                               class="w-full p-3 border rounded-lg focus-ring-accent"
+                               style="border-color: #E5E5E5;">
 
                         <div class="grid grid-cols-3 gap-4">
                             <input id="card-expiry" type="text" placeholder="MM/YY" required
-                                   class="p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
+                                   class="p-3 border rounded-lg focus-ring-accent"
+                                   style="border-color: #E5E5E5;">
                             <input id="card-cvv" type="password" placeholder="CVV" required
                                    maxlength="4"
-                                   class="p-3 border rounded-lg focus-ring-accent" style="border-color: #E5E5E5;">
+                                   class="p-3 border rounded-lg focus-ring-accent"
+                                   style="border-color: #E5E5E5;">
                             <div class="flex items-center">
                                 <label class="inline-flex items-center" style="color: #222222;">
-                                    <input id="save-card" type="checkbox" class="rounded" style="accent-color: #00C853;">
+                                    <input id="save-card" type="checkbox" class="rounded"
+                                           style="accent-color: #00C853;">
                                     <span class="ml-2 text-sm">Save Payment Info</span>
                                 </label>
                             </div>
@@ -118,11 +134,15 @@
             </form>
 
             <!-- Column 3: Order Summary -->
-            <div class="md:col-span-1 p-6 rounded-lg border h-fit" style="background-color: #F5F5F5; border-color: #E5E5E5;">
-                <h2 class="text-xl font-semibold mb-4" style="color: #222222;">Order Summary</h2>
+            <div class="md:col-span-1 p-6 rounded-lg border h-fit"
+                 style="background-color: #F5F5F5; border-color: #E5E5E5;">
+                <h2 class="text-xl font-semibold mb-4" style="color: #222222;">
+                    Order Summary
+                </h2>
 
                 <!-- Items list -->
-                <div id="order-items" class="space-y-3 text-sm mb-4 max-h-64 overflow-y-auto pr-1">
+                <div id="order-items"
+                     class="space-y-3 text-sm mb-4 max-h-64 overflow-y-auto pr-1">
                     <!-- Filled by JS -->
                 </div>
 
@@ -130,13 +150,16 @@
                 <div class="space-y-2 text-sm">
                     <p class="flex justify-between">
                         <span style="color: #666666;">Subtotal:</span>
-                        <span id="order-subtotal" class="font-medium" style="color: #222222;">$0.00</span>
+                        <span id="order-subtotal" class="font-medium"
+                              style="color: #222222;">$0.00</span>
                     </p>
                     <p class="flex justify-between">
                         <span style="color: #666666;">Estimated Tax (13%):</span>
-                        <span id="order-tax" class="font-medium" style="color: #222222;">$0.00</span>
+                        <span id="order-tax" class="font-medium"
+                              style="color: #222222;">$0.00</span>
                     </p>
-                    <p class="flex justify-between border-t pt-2 mt-2 font-bold" style="border-color: #E5E5E5;">
+                    <p class="flex justify-between border-t pt-2 mt-2 font-bold"
+                       style="border-color: #E5E5E5;">
                         <span style="color: #222222;">Total:</span>
                         <span id="order-total" style="color: #222222;">$0.00</span>
                     </p>
@@ -149,13 +172,15 @@
                     Place Order
                 </button>
 
-                <p id="order-message" class="mt-3 text-sm text-accent hidden">
+                <p id="order-message"
+                   class="mt-3 text-sm text-accent hidden">
                     🎉 Thank you! Your order has been placed.
                 </p>
             </div>
         </div>
     </div>
 
+    <!-- Checkout Logic -->
     <script>
         // ---------- Helpers ----------
         function parsePrice(priceStr) {
@@ -167,17 +192,18 @@
             return '$' + value.toFixed(2);
         }
 
-        function loadCart() {
-            return JSON.parse(localStorage.getItem('cart') || '[]');
+        // Only the items the user selected in the cart
+        function loadCheckoutItems() {
+            return JSON.parse(localStorage.getItem('checkoutItems') || '[]');
         }
 
         // ---------- Render order summary ----------
         function renderOrderSummary() {
-            const cartItems = loadCart();
+            const checkoutItems = loadCheckoutItems();
 
-            // If cart is empty, send user back
-            if (!cartItems.length) {
-                alert('Your cart is empty. Please add items before checking out.');
+            // If nothing selected, send back to cart
+            if (!checkoutItems.length) {
+                alert('No items selected for checkout. Please select items in your cart.');
                 window.location.href = 'cart.html';
                 return;
             }
@@ -187,7 +213,7 @@
 
             let subtotal = 0;
 
-            cartItems.forEach(item => {
+            checkoutItems.forEach(item => {
                 const qty = item.quantity || 1;
                 const lineTotal = parsePrice(item.price) * qty;
                 subtotal += lineTotal;
@@ -198,8 +224,12 @@
                 row.innerHTML = `
                     <div class="text-xs">
                         <p class="font-semibold text-primary text-sm">${item.name}</p>
-                        <p class="text-subtext text-xs">Size: <span class="font-medium">${item.size}</span></p>
-                        <p class="text-subtext text-xs">Qty: <span class="font-medium">${qty}</span></p>
+                        <p class="text-subtext text-xs">
+                            Size: <span class="font-medium">${item.size}</span>
+                        </p>
+                        <p class="text-subtext text-xs">
+                            Qty: <span class="font-medium">${qty}</span>
+                        </p>
                     </div>
                     <div class="text-xs font-medium text-primary">
                         ${formatMoney(lineTotal)}
@@ -254,7 +284,7 @@
             const message = document.getElementById('order-message');
 
             placeOrderBtn.addEventListener('click', () => {
-                // Validate shipping form (HTML5)
+                // Validate shipping form (HTML5 built-in)
                 if (!checkoutForm.reportValidity()) {
                     return;
                 }
@@ -264,30 +294,40 @@
                     return;
                 }
 
-                const cartItems = loadCart();
-                if (!cartItems.length) {
-                    alert('Your cart is empty.');
+                const checkoutItems = loadCheckoutItems();
+                if (!checkoutItems.length) {
+                    alert('No items selected for checkout.');
                     window.location.href = 'cart.html';
                     return;
                 }
 
-                // Compute totals
-                const subtotal = cartItems.reduce(
+                // Compute totals from selected items
+                const subtotal = checkoutItems.reduce(
                     (sum, item) => sum + parsePrice(item.price) * (item.quantity || 1),
                     0
                 );
                 const tax = subtotal * 0.13;
                 const total = subtotal + tax;
 
-                // Build order object
+                // Shipping details
+                const shippingAddress = {
+                    fullName: document.getElementById('full-name').value.trim(),
+                    street: document.getElementById('street-address').value.trim(),
+                    city: document.getElementById('city').value.trim(),
+                    state: document.getElementById('state').value.trim(),
+                    zip: document.getElementById('zip').value.trim()
+                };
+
+                // Build order object (matches order-tracking page expectations)
                 const order = {
                     id: 'SH-' + Date.now(),
-                    date: new Date().toISOString(),
-                    status: 'Processing',
-                    items: cartItems,
+                    createdAt: new Date().toISOString(),
+                    status: 'processing',
+                    items: checkoutItems,
                     subtotal,
                     tax,
-                    total
+                    total,
+                    shippingAddress
                 };
 
                 // Save order to localStorage
@@ -295,11 +335,23 @@
                 existingOrders.push(order);
                 localStorage.setItem('orders', JSON.stringify(existingOrders));
 
-                // Clear cart
-                localStorage.removeItem('cart');
+                // Remove ONLY the purchased items from the main cart
+                const fullCart = JSON.parse(localStorage.getItem('cart') || '[]');
+                const remainingCart = fullCart.filter(fullItem =>
+                    !checkoutItems.some(sel =>
+                        sel.id === fullItem.id &&
+                        sel.size === fullItem.size
+                    )
+                );
+                localStorage.setItem('cart', JSON.stringify(remainingCart));
+
+                // Clear temporary selection
+                localStorage.removeItem('checkoutItems');
 
                 // Show message + redirect
                 message.classList.remove('hidden');
+                placeOrderBtn.disabled = true;
+
                 setTimeout(() => {
                     window.location.href = 'order-tracking.HTML';
                 }, 1500);
@@ -307,7 +359,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Optional login check to match rest of app
+            // Optional login check
             const authToken = localStorage.getItem('authToken');
             if (!authToken) {
                 if (confirm('Please login to complete checkout. Go to login page?')) {
@@ -320,6 +372,8 @@
             setupPlaceOrder();
         });
     </script>
+
+    <!-- Shared nav login/logout logic -->
     <script src="nav.js"></script>
 </body>
 </html>

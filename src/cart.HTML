@@ -19,7 +19,6 @@
     <!-- Navigation Header -->
     <nav class="bg-primary text-white p-4 shadow-lg">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-        
             <!-- Left: Logo -->
             <a href="index.HTML" class="text-2xl font-bold hover-text-accent">
                 SneakerHub
@@ -30,25 +29,20 @@
                 <a href="index.HTML" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     Home
                 </a>
-
                 <a href="search-products.HTML" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     Search
                 </a>
-
                 <a href="order-tracking.HTML" id="orders-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     My Orders
                 </a>
-
                 <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     My Cart
                 </a>
-
                 <a href="user-registration.HTML" id="login-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     Login
                 </a>
-
                 <button id="logout-btn"
-                    class="hidden bg-cta px-4 py-2 rounded hover-bg-cta text-white font-semibold">
+                        class="hidden bg-cta px-4 py-2 rounded hover-bg-cta text-white font-semibold">
                     Logout
                 </button>
             </div>
@@ -73,12 +67,15 @@
             <!-- Items list -->
             <section class="lg:col-span-2 bg-white rounded-xl shadow p-4 md:p-6">
                 <h2 class="text-xl font-semibold text-primary mb-4">Items</h2>
+                <p class="text-xs text-subtext mb-4">
+                    Use the checkbox on each item to choose which sneakers to include in your next checkout.
+                </p>
                 <div id="cart-items" class="space-y-4"></div>
             </section>
 
             <!-- Summary -->
             <aside class="bg-white rounded-xl shadow p-4 md:p-6 h-fit">
-                <h2 class="text-xl font-semibold text-primary mb-4">Summary</h2>
+                <h2 class="text-xl font-semibold text-primary mb-4">Summary (Selected Items)</h2>
                 <div class="flex justify-between text-sm mb-2">
                     <span class="text-subtext">Subtotal</span>
                     <span id="subtotal" class="font-medium text-primary">$0.00</span>
@@ -114,7 +111,6 @@
         let cartItems = [];
 
         function parsePrice(priceStr) {
-            // "$119.00" -> 119
             const num = Number(priceStr.replace(/[^0-9.-]+/g, ''));
             return isNaN(num) ? 0 : num;
         }
@@ -126,7 +122,7 @@
         function loadCartFromStorage() {
             const raw = JSON.parse(localStorage.getItem('cart') || '[]');
 
-            
+            // Merge items with same id + size and add image + selected flag
             const merged = [];
             raw.forEach(item => {
                 const keyIndex = merged.findIndex(
@@ -140,7 +136,9 @@
                         name: item.name,
                         price: item.price,
                         size: item.size,
-                        quantity: item.quantity || 1
+                        image: item.image,          // keep image
+                        quantity: item.quantity || 1,
+                        selected: item.selected !== false // default true
                     });
                 }
             });
@@ -153,13 +151,16 @@
             localStorage.setItem('cart', JSON.stringify(cartItems));
         }
 
+        // Totals are based ONLY on selected items
         function updateTotals() {
             let subtotal = 0;
             cartItems.forEach(item => {
-                subtotal += parsePrice(item.price) * item.quantity;
+                if (item.selected !== false) {
+                    subtotal += parsePrice(item.price) * item.quantity;
+                }
             });
 
-            const tax = subtotal * 0.13; 
+            const tax = subtotal * 0.13;
             const total = subtotal + tax;
 
             document.getElementById('subtotal').textContent = formatMoney(subtotal);
@@ -175,6 +176,7 @@
             if (!cartItems.length) {
                 emptyCartDiv.classList.remove('hidden');
                 cartContainer.classList.add('hidden');
+                updateTotals();
                 return;
             }
 
@@ -187,23 +189,40 @@
                 const row = document.createElement('div');
                 row.className = 'flex flex-col md:flex-row items-center justify-between gap-4 border-b pb-4 last:border-b-0';
 
-                // Left: product info
+                // Left: product info + select checkbox
                 const infoDiv = document.createElement('div');
                 infoDiv.className = 'flex-1';
 
                 infoDiv.innerHTML = `
                     <div class="flex items-center gap-4">
                         <img 
-                            src="${item.image}" 
+                            src="${item.image || ''}" 
                             alt="${item.name}" 
-                            class="w-20 h-20 object-cover rounded-md border">
+                            class="w-20 h-20 object-cover rounded-md border"
+                            onerror="this.src='https://placehold.co/80x80?text=No+Image';">
                         <div>
+                            <div class="flex items-center gap-2 mb-1">
+                                <input type="checkbox" class="select-check h-4 w-4 rounded border-gray-300">
+                                <span class="text-xs text-subtext">Include in checkout</span>
+                            </div>
                             <p class="font-semibold text-primary text-base">${item.name}</p>
-                            <p class="text-sm text-subtext">Size: <span class="font-medium">${item.size}</span></p>
-                            <p class="text-sm text-subtext mt-1">Price: <span class="font-medium">${item.price}</span></p>
+                            <p class="text-sm text-subtext">
+                                Size: <span class="font-medium">${item.size}</span>
+                            </p>
+                            <p class="text-sm text-subtext mt-1">
+                                Price: <span class="font-medium">${item.price}</span>
+                            </p>
                         </div>
-                    </div>    
+                    </div>
                 `;
+
+                const selectCheckbox = infoDiv.querySelector('.select-check');
+                selectCheckbox.checked = item.selected !== false;
+                selectCheckbox.addEventListener('change', () => {
+                    item.selected = selectCheckbox.checked;
+                    saveCart();
+                    updateTotals();
+                });
 
                 // Middle: quantity controls
                 const qtyDiv = document.createElement('div');
@@ -246,7 +265,6 @@
                 rightDiv.className = 'flex flex-col items-end gap-2';
 
                 const lineTotal = parsePrice(item.price) * item.quantity;
-
                 const lineTotalSpan = document.createElement('span');
                 lineTotalSpan.textContent = formatMoney(lineTotal);
                 lineTotalSpan.className = 'font-semibold text-primary';
@@ -275,7 +293,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Require login like other pages
             const authToken = localStorage.getItem('authToken');
             if (!authToken) {
                 if (confirm('Please login to view your cart. Go to login page?')) {
@@ -286,8 +303,6 @@
 
             loadCartFromStorage();
             renderCart();
-
-            document.getElementById('add-to-cart-btn');
 
             const clearCartBtn = document.getElementById('clear-cart-btn');
             clearCartBtn.addEventListener('click', () => {
@@ -301,13 +316,19 @@
 
             const checkoutBtn = document.getElementById('checkout-btn');
             checkoutBtn.addEventListener('click', () => {
+                const selectedItems = cartItems.filter(item => item.selected !== false);
+                if (!selectedItems.length) {
+                    alert('Please select at least one item to proceed to checkout.');
+                    return;
+                }
+
+                // Save selection for checkout page
+                localStorage.setItem('checkoutItems', JSON.stringify(selectedItems));
                 window.location.href = 'checkout-page.html';
             });
-
         });
     </script>
+
     <script src="nav.js"></script>
 </body>
 </html>
-
-

@@ -30,7 +30,6 @@
             position: relative;
         }
 
-
         .size-btn:hover {
             border-color: #00C853;
         }
@@ -40,9 +39,6 @@
             color: #ffffff;
             border-color: #00C853;
         }
-
-
-
     </style>
 </head>
 <body class="bg-gray-100">
@@ -50,7 +46,6 @@
     <!-- Navigation Header -->
     <nav class="bg-primary text-white p-4 shadow-lg">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-        
             <!-- Left: Logo -->
             <a href="index.HTML" class="text-2xl font-bold hover-text-accent">
                 SneakerHub
@@ -61,25 +56,20 @@
                 <a href="index.HTML" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     Home
                 </a>
-
                 <a href="search-products.HTML" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     Search
                 </a>
-
                 <a href="order-tracking.HTML" id="orders-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     My Orders
                 </a>
-
                 <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     My Cart
                 </a>
-
                 <a href="user-registration.HTML" id="login-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     Login
                 </a>
-
                 <button id="logout-btn"
-                    class="hidden bg-cta px-4 py-2 rounded hover-bg-cta text-white font-semibold">
+                        class="hidden bg-cta px-4 py-2 rounded hover-bg-cta text-white font-semibold">
                     Logout
                 </button>
             </div>
@@ -89,9 +79,9 @@
     <main class="max-w-5xl mx-auto p-6">
         <div id="product-container" class="bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row">
 
+            <!-- Image with hover zoom -->
             <div class="md:w-1/2 bg-white flex items-center justify-center p-8">
                 <div class="overflow-hidden rounded-2xl">
-                    <!-- Note: Added a placeholder onerror to prevent broken image icons if local images are missing -->
                     <img
                         id="product-image"
                         src=""
@@ -102,6 +92,7 @@
                 </div>
             </div>
 
+            <!-- Details -->
             <div class="md:w-1/2 p-8 flex flex-col gap-4">
                 <div>
                     <h1 id="product-name" class="text-3xl font-bold text-primary mb-2"></h1>
@@ -111,12 +102,14 @@
 
                 <span id="product-status" class="inline-block text-xs px-3 py-1 rounded bg-accent text-white w-fit"></span>
 
+                <!-- Size selection -->
                 <div class="mt-4">
                     <h2 class="font-semibold mb-2 text-primary">Select Size</h2>
                     <div id="size-buttons" class="flex flex-wrap gap-2"></div>
                     <p id="size-error" class="text-sm text-red-600 mt-1 hidden">Please select a size.</p>
                 </div>
 
+                <!-- Add to Cart -->
                 <button
                     id="add-to-cart-btn"
                     class="mt-6 w-full bg-cta text-white font-semibold py-3 rounded-lg hover-bg-cta text-lg"
@@ -133,7 +126,7 @@
             return params.get('id');
         }
 
-        // Note: Image paths are relative. Ensure you have a 'shoes' folder with these images.
+        // All products (original 4 + 4 new ones from search page)
         const products = {
             'nike-dunks-panda': {
                 name: 'Nike Dunks: Panda',
@@ -166,6 +159,40 @@
                 image: '../shoes/air-force-1s.jpg',
                 status: 'Available',
                 sizes: ['4','5','6','7','8','9','10','11','12']
+            },
+
+            // NEW PRODUCTS (from search page)
+            'yeezy-boost-350': {
+                name: 'Yeezy Boost 350',
+                price: '$299.99',
+                description: 'Lightweight knit comfort with a bold silhouette.',
+                image: '../shoes/yeezy boost 350.jpg',
+                status: 'Limited',
+                sizes: ['4','5','6','7','8','9','10','11','12']
+            },
+            'nike-air-max-90': {
+                name: 'Nike Air Max 90',
+                price: '$149.99',
+                description: 'Classic visible Air cushioning for all-day comfort.',
+                image: '../shoes/nike airmax 90.jpg',
+                status: 'Available',
+                sizes: ['4','5','6','7','8','9','10','11','12']
+            },
+            'jordan-6s-white-infrared': {
+                name: 'Jordan 6s: White Infrared',
+                price: '$125.99',
+                description: 'Low-profile suede sneaker with clean lines.',
+                image: '../shoes/Jordan 6s White Infrared.jpg',
+                status: 'Available',
+                sizes: ['4','5','6','7','8','9','10','11','12']
+            },
+            'jordan-11s-gamma-blue': {
+                name: 'Jordan 11s: Gamma Blue',
+                price: '$250.99',
+                description: 'Minimalist leather sneaker with a vintage vibe.',
+                image: '../shoes/jordan 11s gamma blue.jpg',
+                status: 'Available',
+                sizes: ['4','5','6','7','8','9','10','11','12']
             }
         };
 
@@ -174,7 +201,6 @@
 
         function renderProduct(productId) {
             const product = products[productId];
-            // If product not found, handle gracefully (optional)
             if (!product) {
                 document.getElementById('product-name').textContent = "Product Not Found";
                 return;
@@ -198,23 +224,18 @@
                 const btn = document.createElement('button');
                 btn.className = 'size-btn';
                 btn.dataset.size = size;
-
-                btn.innerHTML = `
-                    <span>${size}</span>
-                    <span class="size-btn-check"></span>
-                `;
+                btn.innerHTML = `<span>${size}</span><span class="size-btn-check"></span>`;
 
                 btn.addEventListener('click', () => {
                     selectedSize = size;
                     document.getElementById('size-error').classList.add('hidden');
 
-                    // Remove selected style from all
                     Array.from(sizeContainer.children).forEach(child => {
                         child.classList.remove('size-btn-selected');
-                        child.querySelector('.size-btn-check').textContent = '';
+                        const check = child.querySelector('.size-btn-check');
+                        if (check) check.textContent = '';
                     });
 
-                    // Add to selected button
                     btn.classList.add('size-btn-selected');
                 });
 
@@ -246,21 +267,11 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Commented out Auth check for easier testing
-            /*
-            const authToken = localStorage.getItem('authToken');
-            if (!authToken) {
-                if (confirm('Please login to view product details. Go to login page?')) {
-                    window.location.href = 'src/user-registration.HTML';
-                }
-                return;
-            }
-            */
             renderProduct(getProductIdFromUrl());
             document.getElementById('add-to-cart-btn').addEventListener('click', addToCart);
         });
     </script>
-    <script src="nav.js"></script>
 
+    <script src="nav.js"></script>
 </body>
 </html>
