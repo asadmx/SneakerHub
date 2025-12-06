@@ -2,53 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SneakerHub - Your Ultimate Sneaker Destination</title>
+    <title>SneakerHub – Home</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .bg-primary { background-color: #111111; }
         .bg-secondary { background-color: #F5F5F5; }
         .bg-accent { background-color: #00C853; }
         .bg-cta { background-color: #FF3D00; }
-        .bg-cta-hover:hover { background-color: #e63600; }
+        .hover-bg-cta:hover { background-color: #e63600; }
+        .hover-text-accent:hover { color: #00C853; }
         .text-primary { color: #222222; }
         .text-subtext { color: #666666; }
-        .text-accent { color: #00C853; }
-        .text-cta { color: #FF3D00; }
-        .border-accent { border-color: #00C853; }
-        .border-cta { border-color: #FF3D00; }
-        .hover-text-accent:hover { color: #00C853; }
-        .hover-bg-accent:hover { background-color: #00C853; }
-        .hover-bg-cta:hover { background-color: #e63600; }
-        .focus-ring-accent:focus { outline: 2px solid #00C853; outline-offset: 2px; }
     </style>
 </head>
-<body style="background-color: #F5F5F5;">
-    
+<body class="bg-primary text-white">
+
     <!-- Navigation Header -->
     <nav class="bg-primary text-white p-4 shadow-lg">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <!-- Clickable logo -->
-            <a href="index.HTML" class="text-2xl font-bold hover-text-accent" style="color:white;">
+            <!-- Logo -->
+            <a href="index.HTML" class="text-2xl font-bold hover-text-accent">
                 SneakerHub
             </a>
+
+            <!-- Links -->
             <div class="flex items-center space-x-6 text-base">
-                <a href="index.HTML" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                <a href="index.HTML" class="font-medium" style="color:white;">
                     Home
                 </a>
-                <a href="search-products.HTML" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                <a href="search-products.HTML" class="hover-text-accent font-medium"
+                   style="color:rgba(255,255,255,0.85);">
                     Search
                 </a>
-                <a href="order-tracking.HTML" id="orders-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                <a href="order-tracking.HTML" id="orders-link" class="hover-text-accent font-medium"
+                   style="color:rgba(255,255,255,0.85);">
                     My Orders
                 </a>
-                <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium"
+                   style="color:rgba(255,255,255,0.85);">
                     My Cart
                 </a>
-                <a href="user-registration.HTML" id="login-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                <a href="user-registration.HTML" id="login-link" class="hover-text-accent font-medium"
+                   style="color:rgba(255,255,255,0.85);">
                     Login
                 </a>
-                <button id="logout-btn" class="hidden bg-cta px-4 py-2 rounded hover-bg-cta text-white font-semibold">
+                <button id="logout-btn"
+                        class="hidden bg-cta px-4 py-2 rounded hover-bg-cta text-white font-semibold">
                     Logout
                 </button>
             </div>
@@ -56,227 +55,209 @@
     </nav>
 
     <!-- Hero Section -->
-    <div class="bg-primary text-white py-16" style="background: linear-gradient(135deg, #111111 0%, #222222 100%);">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-4xl md:text-5xl font-bold mb-4">Step Into Style</h2>
-            <p class="text-xl md:text-2xl mb-6" style="color: rgba(255,255,255,0.8);">
-                Discover the latest sneakers and exclusive releases
+    <header class="bg-gradient-to-b from-black to-gray-900">
+        <div class="max-w-7xl mx-auto px-6 py-16 lg:py-24 flex flex-col items-center text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-4">
+                Step Into Style
+            </h1>
+            <p class="text-lg md:text-xl text-gray-300 mb-6 max-w-2xl">
+                Discover the latest sneakers and exclusive releases.
             </p>
 
-            <!-- 🔍 Home Search Bar -->
-            <div class="mt-2 flex justify-center">
-                <div class="w-full max-w-md">
-                    <div class="flex items-center bg-white rounded-full shadow-lg px-4 py-2">
-                        <svg class="w-5 h-5 text-gray-500 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                        </svg>
-                        <input
-                            id="home-search-input"
-                            type="text"
-                            placeholder="Search for sneakers..."
-                            class="w-full outline-none text-gray-700"
-                        >
-                    </div>
+            <!-- Hero Search -->
+            <div class="w-full max-w-2xl mb-6">
+                <div class="flex items-center bg-white rounded-full shadow px-4 py-2">
+                    <svg class="w-5 h-5 text-gray-500 mr-3" fill="none" stroke="currentColor" stroke-width="2"
+                         viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <input
+                        id="home-search-input"
+                        type="text"
+                        placeholder="Search sneakers by name..."
+                        class="w-full outline-none text-gray-700"
+                    >
                 </div>
+
+                <!-- Suggestions -->
+                <ul id="home-search-results"
+                    class="hidden mt-1 w-full bg-white rounded-lg shadow-lg max-h-60 overflow-y-auto text-left text-sm text-primary">
+                    <!-- items injected by JS -->
+                </ul>
+
+                <p id="home-search-status" class="mt-2 text-sm text-gray-300">
+                    Start typing to search sneakers...
+                </p>
             </div>
 
-            <!-- Hero Buttons -->
-            <div class="mt-6 flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="search-products.HTML" class="bg-white px-8 py-3 rounded-lg font-semibold transition hover:opacity-90" style="color: #111111;">
+            <!-- CTA Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 mt-2">
+                <a href="search-products.HTML"
+                   class="bg-accent text-white px-6 md:px-8 py-3 rounded-lg font-semibold hover:opacity-90">
                     Browse Collection
                 </a>
-                <a href="user-registration.HTML" class="bg-cta text-white px-8 py-3 rounded-lg font-semibold hover-bg-cta transition">
+                <a href="user-registration.HTML"
+                   class="bg-cta text-white px-6 md:px-8 py-3 rounded-lg font-semibold hover-bg-cta">
                     Sign Up
                 </a>
             </div>
         </div>
-    </div>
+    </header>
 
-    <!-- Main Content -->
-    <div class="max-w-7xl mx-auto p-6">
-        
-        <!-- Featured Section -->
-        <div class="mb-8">
-            <h2 class="text-3xl font-bold mb-6" style="color: #222222;">Featured Sneakers</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                
-                <!-- Product Card 1 -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden"
+    <!-- Featured Sneakers Section -->
+    <main class="bg-secondary min-h-screen">
+        <section class="max-w-7xl mx-auto px-6 py-12">
+            <h2 class="text-3xl font-bold text-primary mb-6">Featured Sneakers</h2>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <!-- Nike Dunks: Panda -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 cursor-pointer overflow-hidden"
                      onclick="openProductPage('nike-dunks-panda')">
-                    <img src="../shoes/nike-pandas.jpg" 
-                         alt="Nike Dunks: Panda" 
+                    <img src="../shoes/nike-pandas.jpg" alt="Nike Dunks: Panda"
                          class="w-full h-48 object-cover">
                     <div class="p-4">
-                        <h3 class="font-bold text-lg" style="color: #222222;">Nike Dunks: Panda</h3>
-                        <p class="font-semibold mt-1 text-xl" style="color: #00C853;">$119.00</p>
-                        <p class="text-sm mt-2" style="color: #666666;">Fashionable black and white dunks</p>
-                        <div class="mt-3 flex items-center gap-2">
-                            <span class="text-xs px-2 py-1 rounded" style="background-color: #00C853; color: white;">Available</span>
-                        </div>
+                        <h3 class="font-bold text-lg text-primary">Nike Dunks: Panda</h3>
+                        <p class="font-semibold mt-1 text-xl" style="color:#00C853;">$119.00</p>
+                        <p class="text-sm mt-2 text-subtext">Fashionable black and white dunks</p>
+                        <span class="mt-3 inline-block text-xs px-2 py-1 rounded"
+                              style="background-color:#00C853; color:white;">Available</span>
                     </div>
                 </div>
 
-                <!-- Product Card 2 -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden"
+                <!-- Jordan 4s: Red Thunders -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 cursor-pointer overflow-hidden"
                      onclick="openProductPage('jordan-4s-red-thunders')">
-                    <img src="../shoes/red-thunders.jpg" 
-                         alt="Jordan 4s: Red Thunders" 
+                    <img src="../shoes/red-thunders.jpg" alt="Jordan 4s: Red Thunders"
                          class="w-full h-48 object-cover">
                     <div class="p-4">
-                        <h3 class="font-bold text-lg" style="color: #222222;">Jordan 4s: Red Thunders</h3>
-                        <p class="font-semibold mt-1 text-xl" style="color: #00C853;">$450.99</p>
-                        <p class="text-sm mt-2" style="color: #666666;">Comfortable everyday sneakers</p>
-                        <div class="mt-3 flex items-center gap-2">
-                            <span class="text-xs px-2 py-1 rounded" style="background-color: #00C853; color: white;">New Arrival</span>
-                        </div>
+                        <h3 class="font-bold text-lg text-primary">Jordan 4s: Red Thunders</h3>
+                        <p class="font-semibold mt-1 text-xl" style="color:#00C853;">$450.99</p>
+                        <p class="text-sm mt-2 text-subtext">Comfortable everyday sneakers</p>
+                        <span class="mt-3 inline-block text-xs px-2 py-1 rounded"
+                              style="background-color:#00C853; color:white;">New Arrival</span>
                     </div>
                 </div>
 
-                <!-- Product Card 3 -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden"
+                <!-- Jordan 1s: Court Purple -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 cursor-pointer overflow-hidden"
                      onclick="openProductPage('jordan-1s-court-purple')">
-                    <img src="../shoes/jordan-1s-purple.jpg" 
-                         alt="Jordan 1s: Court Purple" 
+                    <img src="../shoes/jordan-1s-purple.jpg" alt="Jordan 1s: Court Purple"
                          class="w-full h-48 object-cover">
                     <div class="p-4">
-                        <h3 class="font-bold text-lg" style="color: #222222;">Jordan 1s: Court Purple</h3>
-                        <p class="font-semibold mt-1 text-xl" style="color: #00C853;">$79.99</p>
-                        <p class="text-sm mt-2" style="color: #666666;">Stylish High-top shoes</p>
-                        <div class="mt-3 flex items-center gap-2">
-                            <span class="text-xs px-2 py-1 rounded" style="background-color: #00C853; color: white;">Available</span>
-                        </div>
+                        <h3 class="font-bold text-lg text-primary">Jordan 1s: Court Purple</h3>
+                        <p class="font-semibold mt-1 text-xl" style="color:#00C853;">$79.99</p>
+                        <p class="text-sm mt-2 text-subtext">Stylish High-top shoes</p>
+                        <span class="mt-3 inline-block text-xs px-2 py-1 rounded"
+                              style="background-color:#00C853; color:white;">Available</span>
                     </div>
                 </div>
 
-                <!-- Product Card 4 -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden"
+                <!-- Black Air Force 1s -->
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 cursor-pointer overflow-hidden"
                      onclick="openProductPage('black-air-force-1s')">
-                    <img src="../shoes/air-force-1s.jpg" 
-                         alt="Black Air Force 1s" 
+                    <img src="../shoes/air-force-1s.jpg" alt="Black Air Force 1s"
                          class="w-full h-48 object-cover">
                     <div class="p-4">
-                        <h3 class="font-bold text-lg" style="color: #222222;">Black Air Force 1s</h3>
-                        <p class="font-semibold mt-1 text-xl" style="color: #00C853;">$99.99</p>
-                        <p class="text-sm mt-2" style="color: #666666;">Opium Type Shoes</p>
-                        <div class="mt-3 flex items-center gap-2">
-                            <span class="text-xs px-2 py-1 rounded" style="background-color: #00C853; color: white;">Available</span>
-                        </div>
+                        <h3 class="font-bold text-lg text-primary">Black Air Force 1s</h3>
+                        <p class="font-semibold mt-1 text-xl" style="color:#00C853;">$99.99</p>
+                        <p class="text-sm mt-2 text-subtext">Opium Type Shoes</p>
+                        <span class="mt-3 inline-block text-xs px-2 py-1 rounded"
+                              style="background-color:#00C853; color:white;">Available</span>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Browse More Section -->
-        <div class="bg-white rounded-lg shadow p-6 mb-8">
-            <h2 class="text-2xl font-bold mb-4" style="color: #222222;">Explore More</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <a href="search-products.HTML" class="rounded-lg p-4 transition hover:opacity-90" style="background-color: rgba(0,200,83,0.1);">
-                    <h3 class="font-semibold mb-2" style="color: #00C853;">🔍 Search Products</h3>
-                    <p class="text-sm" style="color: #666666;">Find your perfect pair with our advanced search</p>
-                </a>
-                <a href="order-tracking.HTML" class="rounded-lg p-4 transition hover:opacity-90" style="background-color: rgba(0,200,83,0.1);" id="track-orders-link">
-                    <h3 class="font-semibold mb-2" style="color: #00C853;">📦 Track Orders</h3>
-                    <p class="text-sm" style="color: #666666;">View your order status and history</p>
-                </a>
-                <a href="user-registration.HTML" class="rounded-lg p-4 transition hover:opacity-90" style="background-color: rgba(0,200,83,0.1);" id="account-link">
-                    <h3 class="font-semibold mb-2" style="color: #00C853;">👤 My Account</h3>
-                    <p class="text-sm" style="color: #666666;">Login or create an account to get started</p>
-                </a>
-            </div>
-        </div>
 
-        <!-- Call to Action -->
-        <div class="bg-primary text-white rounded-lg shadow-lg p-8 text-center">
-            <h2 class="text-2xl font-bold mb-4">Ready to Find Your Perfect Sneakers?</h2>
-            <p class="mb-6" style="color: rgba(255,255,255,0.8);">
-                Join thousands of satisfied customers and discover your next favorite pair
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="search-products.HTML" class="bg-white px-6 py-3 rounded-lg font-semibold transition hover:opacity-90" style="color: #111111;">
-                    Start Shopping
-                </a>
-                <a href="user-registration.HTML" class="bg-cta text-white px-6 py-3 rounded-lg font-semibold hover-bg-cta transition">
-                    Create Account
-                </a>
             </div>
-        </div>
+        </section>
+    </main>
 
-    </div>
-
-    <!-- Footer -->
-    <footer class="bg-primary text-white mt-12 py-8">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-4">SneakerHub</h3>
-                    <p style="color: rgba(255,255,255,0.7);">
-                        Your ultimate destination for premium sneakers and streetwear.
-                    </p>
-                </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Quick Links</h4>
-                    <ul class="space-y-2" style="color: rgba(255,255,255,0.7);">
-                        <li><a href="index.HTML" class="hover-text-accent transition">Home</a></li>
-                        <li><a href="search-products.HTML" class="hover-text-accent transition">Search Products</a></li>
-                        <li><a href="order-tracking.HTML" class="hover-text-accent transition">My Orders</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-semibold mb-4">Account</h4>
-                    <ul class="space-y-2" style="color: rgba(255,255,255,0.7);">
-                        <li><a href="user-registration.HTML" class="hover-text-accent transition">Login / Register</a></li>
-                        <li><a href="order-tracking.HTML" class="hover-text-accent transition">Order History</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t mt-8 pt-8 text-center" style="border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.7);">
-                <p>&copy; 2025 SneakerHub. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Page Scripts -->
+    <!-- Scripts -->
     <script>
-        // Product quick-search from home hero
-        const homeSearchProducts = [
-            { name: "Air Force", id: "black-air-force-1s" },
-            { name: "Jordan 1 Purple", id: "jordan-1s-court-purple" },
-            { name: "Jordan 1", id: "jordan-1s-court-purple" },
-            { name: "Nike Panda", id: "nike-dunks-panda" },
-            { name: "Red Thunders", id: "jordan-4s-red-thunders" }
+        // All products for home search suggestions
+        const homeProducts = [
+            { id: 'nike-dunks-panda',          name: 'Nike Dunks: Panda' },
+            { id: 'jordan-4s-red-thunders',    name: 'Jordan 4s: Red Thunders' },
+            { id: 'jordan-1s-court-purple',    name: 'Jordan 1s: Court Purple' },
+            { id: 'black-air-force-1s',        name: 'Black Air Force 1s' },
+            { id: 'yeezy-boost-350',           name: 'Yeezy Boost 350' },
+            { id: 'nike-air-max-90',           name: 'Nike Air Max 90' },
+            { id: 'jordan-6s-white-infrared',  name: 'Jordan 6s: White Infrared' },
+            { id: 'jordan-11s-gamma-blue',     name: 'Jordan 11s: Gamma Blue' }
         ];
 
-        document.addEventListener("DOMContentLoaded", () => {
-            const searchInput = document.getElementById("home-search-input");
+        const homeSearchInput = document.getElementById('home-search-input');
+        const homeResultsList = document.getElementById('home-search-results');
+        const homeStatusText  = document.getElementById('home-search-status');
 
-            if (searchInput) {
-                searchInput.addEventListener("keydown", function (e) {
-                    if (e.key === "Enter") {
-                        const query = searchInput.value.trim().toLowerCase();
-                        if (!query) return;
+        function getHomeFilteredProducts(query) {
+            if (!query) return [];
+            const q = query.toLowerCase();
+            return homeProducts.filter(p => p.name.toLowerCase().includes(q));
+        }
 
-                        const match = homeSearchProducts.find(p =>
-                            p.name.toLowerCase().includes(query)
-                        );
+        function goToBrowseWithQuery(query) {
+            if (!query) return;
+            const url = 'search-products.HTML?q=' + encodeURIComponent(query.trim());
+            window.location.href = url;
+        }
 
-                        if (match) {
-                            window.location.href = "product.html?id=" + encodeURIComponent(match.id);
-                        } else {
-                            alert("No matching sneaker found.");
-                        }
-                    }
+        homeSearchInput.addEventListener('input', () => {
+            const query = homeSearchInput.value.trim();
+            homeResultsList.innerHTML = '';
+
+            if (!query) {
+                homeResultsList.classList.add('hidden');
+                homeStatusText.textContent = 'Start typing to search sneakers...';
+                return;
+            }
+
+            const results = getHomeFilteredProducts(query);
+
+            if (!results.length) {
+                homeResultsList.classList.add('hidden');
+                homeStatusText.textContent = 'No sneakers found.';
+                return;
+            }
+
+            results.forEach(product => {
+                const li = document.createElement('li');
+                li.textContent = product.name;
+                li.className = "px-4 py-2 cursor-pointer hover:bg-gray-100 text-primary";
+
+                li.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    goToBrowseWithQuery(product.name);
                 });
+
+                homeResultsList.appendChild(li);
+            });
+
+            homeResultsList.classList.remove('hidden');
+            homeStatusText.textContent = `Found ${results.length} sneaker(s).`;
+        });
+
+        homeSearchInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const q = homeSearchInput.value.trim();
+                if (q) goToBrowseWithQuery(q);
             }
         });
 
-        // Open product detail page from featured cards
+        document.addEventListener('click', (e) => {
+            if (!homeSearchInput.contains(e.target) &&
+                !homeResultsList.contains(e.target)) {
+                homeResultsList.classList.add('hidden');
+            }
+        });
+
         function openProductPage(productId) {
             window.location.href = 'product.html?id=' + encodeURIComponent(productId);
         }
     </script>
 
+    <!-- Shared nav login/logout logic -->
     <script src="nav.js"></script>
-
 </body>
 </html>
