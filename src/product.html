@@ -62,8 +62,9 @@
                 <a href="order-tracking.HTML" id="orders-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     My Orders
                 </a>
-                <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium relative" style="color: rgba(255,255,255,0.85);">
                     My Cart
+                    <span id="cart-badge" class="hidden absolute -top-2 -right-2 bg-cta text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
                 </a>
                 <a href="user-registration.HTML" id="login-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     Login
@@ -121,6 +122,15 @@
     </main>
 
     <script>
+        // Authentication check
+        document.addEventListener('DOMContentLoaded', () => {
+            const authToken = localStorage.getItem('authToken');
+            if (!authToken) {
+                window.location.href = 'user-registration.HTML';
+                return;
+            }
+        });
+        
         function getProductIdFromUrl() {
             const params = new URLSearchParams(window.location.search);
             return params.get('id');
@@ -132,7 +142,7 @@
                 name: 'Nike Dunks: Panda',
                 price: '$119.00',
                 description: 'Fashionable black and white dunks.',
-                image: '../shoes/nike-pandas.jpg',
+                image: '/shoes/nike-pandas.jpg',
                 status: 'Available',
                 sizes: ['4','5','6','7','8','9','10','11','12']
             },
@@ -140,7 +150,7 @@
                 name: 'Jordan 4s: Red Thunders',
                 price: '$450.99',
                 description: 'Comfortable everyday sneakers.',
-                image: '../shoes/red-thunders.jpg',
+                image: '/shoes/red-thunders.jpg',
                 status: 'New Arrival',
                 sizes: ['4','5','6','7','8','9','10','11','12']
             },
@@ -148,7 +158,7 @@
                 name: 'Jordan 1s: Court Purple',
                 price: '$79.99',
                 description: 'Stylish high-top shoes with bold purple accents.',
-                image: '../shoes/jordan-1s-purple.jpg',
+                image: '/shoes/jordan-1s-purple.jpg',
                 status: 'Available',
                 sizes: ['4','5','6','7','8','9','10','11','12']
             },
@@ -156,7 +166,7 @@
                 name: 'Black Air Force 1s',
                 price: '$99.99',
                 description: 'Classic all-black Air Force 1s for everyday wear.',
-                image: '../shoes/air-force-1s.jpg',
+                image: '/shoes/air-force-1s.jpg',
                 status: 'Available',
                 sizes: ['4','5','6','7','8','9','10','11','12']
             },
@@ -166,7 +176,7 @@
                 name: 'Yeezy Boost 350',
                 price: '$299.99',
                 description: 'Lightweight knit comfort with a bold silhouette.',
-                image: '../shoes/yeezy boost 350.jpg',
+                image: '/shoes/yeezy%20boost%20350.jpg',
                 status: 'Limited',
                 sizes: ['4','5','6','7','8','9','10','11','12']
             },
@@ -174,7 +184,7 @@
                 name: 'Nike Air Max 90',
                 price: '$149.99',
                 description: 'Classic visible Air cushioning for all-day comfort.',
-                image: '../shoes/nike airmax 90.jpg',
+                image: '/shoes/nike%20airmax%2090.jpg',
                 status: 'Available',
                 sizes: ['4','5','6','7','8','9','10','11','12']
             },
@@ -182,7 +192,7 @@
                 name: 'Jordan 6s: White Infrared',
                 price: '$125.99',
                 description: 'Low-profile suede sneaker with clean lines.',
-                image: '../shoes/Jordan 6s White Infrared.jpg',
+                image: '/shoes/Jordan%206s%20White%20Infrared.jpg',
                 status: 'Available',
                 sizes: ['4','5','6','7','8','9','10','11','12']
             },
@@ -190,7 +200,7 @@
                 name: 'Jordan 11s: Gamma Blue',
                 price: '$250.99',
                 description: 'Minimalist leather sneaker with a vintage vibe.',
-                image: '../shoes/jordan 11s gamma blue.jpg',
+                image: '/shoes/jordan%2011s%20gamma%20blue.jpg',
                 status: 'Available',
                 sizes: ['4','5','6','7','8','9','10','11','12']
             }
@@ -263,7 +273,30 @@
             existing.push(cartItem);
             localStorage.setItem('cart', JSON.stringify(existing));
 
-            alert(`Added ${product.name} (Size ${selectedSize}) to your cart.`);
+            // Show success feedback
+            const btn = document.getElementById('add-to-cart-btn');
+            const originalText = btn.textContent;
+            btn.textContent = '✓ Added to Cart!';
+            btn.classList.add('bg-accent');
+            btn.classList.remove('bg-cta');
+            
+            // Update cart badge
+            if (typeof updateCartBadge === 'function') {
+                updateCartBadge();
+            } else {
+                // Trigger nav.js update
+                setTimeout(() => {
+                    const event = new CustomEvent('cartUpdated');
+                    window.dispatchEvent(event);
+                }, 100);
+            }
+            
+            // Reset button after 2 seconds
+            setTimeout(() => {
+                btn.textContent = originalText;
+                btn.classList.remove('bg-accent');
+                btn.classList.add('bg-cta');
+            }, 2000);
         }
 
         document.addEventListener('DOMContentLoaded', () => {

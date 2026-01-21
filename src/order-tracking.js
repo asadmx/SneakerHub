@@ -77,7 +77,7 @@ function renderOrderCard(order, isHistory = false) {
     '#6B7280';
 
   return `
-    <div class="border rounded-lg p-4 mb-4 shadow-sm bg-white">
+    <div class="order-card border rounded-lg p-4 mb-4 shadow-sm bg-white hover:shadow-md transition-shadow">
       <div class="flex justify-between items-start mb-2">
         <div>
           <p class="text-sm text-gray-500">Order ID</p>

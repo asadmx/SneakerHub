@@ -27,7 +27,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-producti
 // Frontend serving (IMPORTANT)
 // -----------------------------
 const FRONTEND_DIR = path.join(__dirname, 'src'); // your repo uses /src for frontend
-const FRONTEND_ENTRY = process.env.FRONTEND_ENTRY || 'order-tracking.HTML'; // you can change later
+const FRONTEND_ENTRY = process.env.FRONTEND_ENTRY || 'index.HTML'; // Default to homepage
 
 // Middleware
 app.use(cors()); // ok to keep; if you want stricter later, we can lock origin
@@ -35,6 +35,8 @@ app.use(express.json());
 
 // Serve static frontend files
 app.use(express.static(FRONTEND_DIR));
+// Serve shoes images folder
+app.use('/shoes', express.static(path.join(__dirname, 'shoes')));
 
 // Root route loads the UI
 app.get('/', (req, res) => {

@@ -1,3 +1,26 @@
+function getCartCount() {
+    try {
+        const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        return cart.reduce((total, item) => total + (item.quantity || 1), 0);
+    } catch {
+        return 0;
+    }
+}
+
+function updateCartBadge() {
+    const cartBadge = document.getElementById('cart-badge');
+    const count = getCartCount();
+    
+    if (cartBadge) {
+        if (count > 0) {
+            cartBadge.textContent = count > 99 ? '99+' : count;
+            cartBadge.classList.remove('hidden');
+        } else {
+            cartBadge.classList.add('hidden');
+        }
+    }
+}
+
 function updateNavigation() {
     const authToken = localStorage.getItem('authToken');
     const userEmail = localStorage.getItem('userEmail');
@@ -21,6 +44,9 @@ function updateNavigation() {
         if (ordersLink) ordersLink.classList.remove('font-semibold');
         if (cartLink)   cartLink.classList.remove('font-semibold');
     }
+    
+    // Update cart badge
+    updateCartBadge();
 }
 
 function setupLogout() {
@@ -41,6 +67,14 @@ function setupLogout() {
 document.addEventListener('DOMContentLoaded', () => {
     updateNavigation();
     setupLogout();
+    
+    // Update cart badge periodically
+    setInterval(updateCartBadge, 1000);
+    
+    // Listen for storage changes (cart updates)
+    window.addEventListener('storage', () => {
+        updateCartBadge();
+    });
 });
 
 

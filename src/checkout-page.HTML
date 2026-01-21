@@ -17,6 +17,29 @@
         .text-accent { color: #00C853; }
         .focus-ring-accent:focus { outline: 2px solid #00C853; outline-offset: 2px; }
         .hover-text-accent:hover { color: #00C853; }
+        
+        /* Smooth form animations */
+        input:focus, select:focus {
+            transform: scale(1.01);
+            box-shadow: 0 0 0 3px rgba(0, 200, 83, 0.1);
+            transition: all 0.2s ease;
+        }
+        
+        /* Button hover effects */
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        /* Section hover effect */
+        section:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
     </style>
 </head>
 <body style="background-color: #F5F5F5;">
@@ -40,8 +63,9 @@
                 <a href="order-tracking.HTML" id="orders-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     My Orders
                 </a>
-                <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium relative" style="color: rgba(255,255,255,0.85);">
                     My Cart
+                    <span id="cart-badge" class="hidden absolute -top-2 -right-2 bg-cta text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
                 </a>
                 <a href="user-registration.HTML" id="login-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     Login
@@ -325,30 +349,85 @@
                     shippingAddress
                 };
 
-                // Save order to localStorage
-                const existingOrders = JSON.parse(localStorage.getItem('orders') || '[]');
-                existingOrders.push(order);
-                localStorage.setItem('orders', JSON.stringify(existingOrders));
+                // Create order via API
+                const authToken = localStorage.getItem('authToken');
+                if (!authToken) {
+                    alert('Please login to place an order.');
+                    window.location.href = 'user-registration.HTML';
+                    return;
+                }
 
-                // Remove ONLY the purchased items from the main cart
-                const fullCart = JSON.parse(localStorage.getItem('cart') || '[]');
-                const remainingCart = fullCart.filter(fullItem =>
-                    !checkoutItems.some(sel =>
-                        sel.id === fullItem.id &&
-                        sel.size === fullItem.size
-                    )
-                );
-                localStorage.setItem('cart', JSON.stringify(remainingCart));
-
-                localStorage.removeItem('checkoutItems');
-
-                // Show message + redirect
-                message.classList.remove('hidden');
                 placeOrderBtn.disabled = true;
+                placeOrderBtn.textContent = 'Placing Order...';
 
-                setTimeout(() => {
-                    window.location.href = 'order-tracking.HTML';
-                }, 1500);
+                try {
+                    const apiItems = checkoutItems.map(item => ({
+                        productId: item.id,
+                        name: item.name,
+                        size: parseInt(item.size),
+                        price: parsePrice(item.price),
+                        quantity: item.quantity || 1
+                    }));
+
+                    const response = await fetch('/api/orders', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${authToken}`
+                        },
+                        body: JSON.stringify({
+                            items: apiItems,
+                            shippingAddress: {
+                                name: shippingAddress.fullName,
+                                street: shippingAddress.street,
+                                city: shippingAddress.city,
+                                state: shippingAddress.state,
+                                zipCode: shippingAddress.zip
+                            },
+                            totalAmount: total
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        // Order created successfully
+                        message.classList.remove('hidden');
+                        message.textContent = `🎉 Order placed successfully! Order ID: ${data.orderId}`;
+                        
+                        // Remove purchased items from cart
+                        const fullCart = JSON.parse(localStorage.getItem('cart') || '[]');
+                        const remainingCart = fullCart.filter(fullItem =>
+                            !checkoutItems.some(sel =>
+                                sel.id === fullItem.id &&
+                                sel.size === fullItem.size
+                            )
+                        );
+                        localStorage.setItem('cart', JSON.stringify(remainingCart));
+                        
+                        // Clear checkout items
+                        localStorage.removeItem('checkoutItems');
+                        
+                        // Update cart badge
+                        if (typeof updateCartBadge === 'function') {
+                            updateCartBadge();
+                        }
+                        
+                        // Redirect after 2 seconds
+                        setTimeout(() => {
+                            window.location.href = 'order-tracking.HTML';
+                        }, 2000);
+                    } else {
+                        throw new Error(data.error || 'Failed to place order');
+                    }
+                } catch (error) {
+                    console.error('Order error:', error);
+                    alert('Failed to place order: ' + error.message);
+                    placeOrderBtn.disabled = false;
+                    placeOrderBtn.textContent = 'Place Order';
+                    return;
+                }
+
             });
         }
 

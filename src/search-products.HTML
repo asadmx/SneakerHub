@@ -13,6 +13,25 @@
         .hover-text-accent:hover { color: #00C853; }
         .text-primary { color: #222222; }
         .text-subtext { color: #666666; }
+        
+        /* Smooth transitions and animations */
+        .product-card {
+            transform: translateY(0);
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
     </style>
 </head>
 
@@ -39,9 +58,10 @@
                    style="color:rgba(255,255,255,0.85);">
                     My Orders
                 </a>
-                <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium"
+                <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium relative"
                    style="color:rgba(255,255,255,0.85);">
                     My Cart
+                    <span id="cart-badge" class="hidden absolute -top-2 -right-2 bg-cta text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
                 </a>
                 <a href="user-registration.HTML" id="login-link" class="hover-text-accent font-medium"
                    style="color:rgba(255,255,255,0.85);">
@@ -89,11 +109,11 @@
                  class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
                 <!-- 1. Nike Dunks: Panda -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden"
+                <div class="product-card bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden fade-in"
                      data-product-card
                      data-name="nike dunks panda"
                      onclick="openProductPage('nike-dunks-panda')">
-                    <img src="../shoes/nike-pandas.jpg"
+                    <img src="/shoes/nike-pandas.jpg"
                          alt="Nike Dunks: Panda"
                          class="w-full h-48 object-cover">
                     <div class="p-4">
@@ -106,11 +126,11 @@
                 </div>
 
                 <!-- 2. Jordan 4s: Red Thunders -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden"
+                <div class="product-card bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden fade-in"
                      data-product-card
                      data-name="jordan 4s red thunders"
                      onclick="openProductPage('jordan-4s-red-thunders')">
-                    <img src="../shoes/red-thunders.jpg"
+                    <img src="/shoes/red-thunders.jpg"
                          alt="Jordan 4s: Red Thunders"
                          class="w-full h-48 object-cover">
                     <div class="p-4">
@@ -123,11 +143,11 @@
                 </div>
 
                 <!-- 3. Jordan 1s: Court Purple -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden"
+                <div class="product-card bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden fade-in"
                      data-product-card
                      data-name="jordan 1s court purple"
                      onclick="openProductPage('jordan-1s-court-purple')">
-                    <img src="../shoes/jordan-1s-purple.jpg"
+                    <img src="/shoes/jordan-1s-purple.jpg"
                          alt="Jordan 1s: Court Purple"
                          class="w-full h-48 object-cover">
                     <div class="p-4">
@@ -140,11 +160,11 @@
                 </div>
 
                 <!-- 4. Black Air Force 1s -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden"
+                <div class="product-card bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden fade-in"
                      data-product-card
                      data-name="black air force 1s"
                      onclick="openProductPage('black-air-force-1s')">
-                    <img src="../shoes/air-force-1s.jpg"
+                    <img src="/shoes/air-force-1s.jpg"
                          alt="Black Air Force 1s"
                          class="w-full h-48 object-cover">
                     <div class="p-4">
@@ -157,13 +177,13 @@
                 </div>
 
                 <!-- 5. Yeezy Boost 350 -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden"
+                <div class="product-card bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden fade-in"
                      data-product-card
                      data-name="yeezy boost 350"
                      onclick="openProductPage('yeezy-boost-350')">
 
                     <div class="w-full h-56 bg-white flex items-center justify-center overflow-hidden">
-                        <img src="../shoes/yeezy boost 350.jpg"
+                        <img src="/shoes/yeezy%20boost%20350.jpg"
                              alt="Yeezy Boost 350"
                              class="max-h-full w-auto object-contain">
                     </div>
@@ -178,13 +198,13 @@
                 </div>
 
                 <!-- 6. Nike Air Max 90 -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden"
+                <div class="product-card bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden fade-in"
                      data-product-card
                      data-name="nike air max 90"
                      onclick="openProductPage('nike-air-max-90')">
 
                     <div class="w-full h-56 bg-white flex items-center justify-center overflow-hidden">
-                        <img src="../shoes/nike airmax 90.jpg"
+                        <img src="/shoes/nike%20airmax%2090.jpg"
                              alt="Nike Air Max 90"
                              class="max-h-full w-auto object-contain">
                     </div>
@@ -199,13 +219,13 @@
                 </div>
 
                 <!-- 7. Jordan 6s: White Infrared -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden"
+                <div class="product-card bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden fade-in"
                      data-product-card
                      data-name="jordan 6s white infrared"
                      onclick="openProductPage('jordan-6s-white-infrared')">
 
                     <div class="w-full h-56 bg-white flex items-center justify-center overflow-hidden">
-                        <img src="../shoes/Jordan 6s White Infrared.jpg"
+                        <img src="/shoes/Jordan%206s%20White%20Infrared.jpg"
                              alt="Jordan 6s White Infrared"
                              class="max-h-full w-auto object-contain">
                     </div>
@@ -220,13 +240,13 @@
                 </div>
 
                 <!-- 8. Jordan 11s: Gamma Blue -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden"
+                <div class="product-card bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 cursor-pointer overflow-hidden fade-in"
                      data-product-card
                      data-name="jordan 11s gamma blue"
                      onclick="openProductPage('jordan-11s-gamma-blue')">
 
                     <div class="w-full h-56 bg-white flex items-center justify-center overflow-hidden">
-                        <img src="../shoes/jordan 11s gamma blue.jpg"
+                        <img src="/shoes/jordan%2011s%20gamma%20blue.jpg"
                              alt="Jordan 11s Gamma Blue"
                              class="max-h-full w-auto object-contain">
                     </div>
@@ -246,6 +266,15 @@
 
     <!-- PAGE SCRIPTS -->
     <script>
+        // Authentication check
+        document.addEventListener('DOMContentLoaded', () => {
+            const authToken = localStorage.getItem('authToken');
+            if (!authToken) {
+                window.location.href = 'user-registration.HTML';
+                return;
+            }
+        });
+        
         const searchInput = document.getElementById('browse-search-input');
         const statusText  = document.getElementById('browse-status');
         const cards       = document.querySelectorAll('[data-product-card]');

@@ -13,6 +13,114 @@
         .hover-text-accent:hover { color: #00C853; }
         .text-primary { color: #222222; }
         .text-subtext { color: #666666; }
+        
+        /* Smooth transitions */
+        * {
+            transition: all 0.3s ease;
+        }
+        
+        /* Product card hover effect */
+        .product-card {
+            transform: translateY(0);
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.1));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 0.75rem;
+        }
+        
+        .product-card:hover::before {
+            opacity: 1;
+        }
+        
+        /* Smooth fade-in animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes slideInFromTop {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .slide-in-top {
+            animation: slideInFromTop 0.8s ease-out;
+        }
+        
+        /* Pulse animation for badges */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .pulse-badge {
+            animation: pulse 2s infinite;
+        }
+        
+        /* Hero gradient animation */
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(-45deg, #111111, #1a1a1a, #2d2d2d, #111111);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        /* Image hover zoom effect */
+        .product-image {
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+        
+        /* Floating animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        /* Glow effect on hover */
+        .glow-on-hover:hover {
+            box-shadow: 0 0 20px rgba(0, 200, 83, 0.5);
+        }
+        
+        /* Feature card hover */
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body class="bg-primary text-white">
@@ -25,8 +133,15 @@
                 SneakerHub
             </a>
 
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-white p-2">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+
             <!-- Links -->
-            <div class="flex items-center space-x-6 text-base">
+            <div id="nav-links" class="hidden md:flex items-center space-x-6 text-base">
                 <a href="index.HTML" class="font-medium" style="color:white;">
                     Home
                 </a>
@@ -38,9 +153,10 @@
                    style="color:rgba(255,255,255,0.85);">
                     My Orders
                 </a>
-                <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium"
+                <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium relative"
                    style="color:rgba(255,255,255,0.85);">
                     My Cart
+                    <span id="cart-badge" class="hidden absolute -top-2 -right-2 bg-cta text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
                 </a>
                 <a href="user-registration.HTML" id="login-link" class="hover-text-accent font-medium"
                    style="color:rgba(255,255,255,0.85);">
@@ -55,19 +171,22 @@
     </nav>
 
     <!-- Hero Section -->
-    <header class="bg-gradient-to-b from-black to-gray-900">
-        <div class="max-w-7xl mx-auto px-6 py-16 lg:py-24 flex flex-col items-center text-center">
-            <h1 class="text-4xl md:text-6xl font-extrabold mb-4">
-                Step Into Style
-            </h1>
-            <p class="text-lg md:text-xl text-gray-300 mb-6 max-w-2xl">
-                Discover the latest sneakers and exclusive releases.
-            </p>
+    <header class="hero-gradient relative overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-20"></div>
+        <div class="max-w-7xl mx-auto px-6 py-20 lg:py-32 flex flex-col items-center text-center relative z-10">
+            <div class="slide-in-top">
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+                    Step Into Style
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl font-light">
+                    Discover the latest sneakers, exclusive releases, and premium footwear from the world's top brands
+                </p>
+            </div>
 
             <!-- Hero Search -->
-            <div class="w-full max-w-2xl mb-6">
-                <div class="flex items-center bg-white rounded-full shadow px-4 py-2">
-                    <svg class="w-5 h-5 text-gray-500 mr-3" fill="none" stroke="currentColor" stroke-width="2"
+            <div class="w-full max-w-2xl mb-8 fade-in">
+                <div class="flex items-center bg-white rounded-full shadow-2xl px-6 py-4 hover:shadow-3xl transition-all">
+                    <svg class="w-6 h-6 text-gray-500 mr-4" fill="none" stroke="currentColor" stroke-width="2"
                          viewBox="0 0 24 24">
                         <circle cx="11" cy="11" r="8"></circle>
                         <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -75,103 +194,188 @@
                     <input
                         id="home-search-input"
                         type="text"
-                        placeholder="Search sneakers by name..."
-                        class="w-full outline-none text-gray-700"
+                        placeholder="Search for your perfect sneakers..."
+                        class="w-full outline-none text-gray-700 text-lg"
                     >
                 </div>
 
                 <!-- Suggestions -->
                 <ul id="home-search-results"
-                    class="hidden mt-1 w-full bg-white rounded-lg shadow-lg max-h-60 overflow-y-auto text-left text-sm text-primary">
+                    class="hidden mt-2 w-full bg-white rounded-xl shadow-2xl max-h-60 overflow-y-auto text-left text-sm text-primary">
                 </ul>
 
-                <p id="home-search-status" class="mt-2 text-sm text-gray-300">
+                <p id="home-search-status" class="mt-3 text-sm text-gray-300">
                     Start typing to search sneakers...
                 </p>
             </div>
 
-            <div class="flex flex-wrap justify-center gap-4 mt-2">
+            <div class="flex flex-wrap justify-center gap-4 mt-4 fade-in">
                 <a href="search-products.HTML"
-                   class="bg-accent text-white px-6 md:px-8 py-3 rounded-lg font-semibold hover:opacity-90">
-                    Browse Collection
+                   class="bg-accent text-white px-8 md:px-10 py-4 rounded-full font-bold text-lg hover:opacity-90 glow-on-hover transform hover:scale-105 transition-all">
+                    🛍️ Browse Collection
                 </a>
-                <a href="user-registration.HTML"
-                   class="bg-cta text-white px-6 md:px-8 py-3 rounded-lg font-semibold hover-bg-cta">
-                    Sign Up
+                <a href="order-tracking.HTML"
+                   class="bg-white text-primary px-8 md:px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all">
+                    📦 My Orders
                 </a>
             </div>
         </div>
+        
+        <!-- Decorative elements -->
+        <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-secondary to-transparent"></div>
     </header>
+
+    <!-- Features Section -->
+    <section class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="feature-card text-center p-6 rounded-xl">
+                    <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary mb-2">Authentic Products</h3>
+                    <p class="text-subtext">100% authentic sneakers from verified suppliers</p>
+                </div>
+                
+                <div class="feature-card text-center p-6 rounded-xl">
+                    <div class="w-16 h-16 bg-cta rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary mb-2">Fast Shipping</h3>
+                    <p class="text-subtext">Quick delivery with real-time order tracking</p>
+                </div>
+                
+                <div class="feature-card text-center p-6 rounded-xl">
+                    <div class="w-16 h-16 bg-accent rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-primary mb-2">Secure Payment</h3>
+                    <p class="text-subtext">Safe and secure checkout process</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Featured Sneakers Section -->
     <main class="bg-secondary min-h-screen">
-        <section class="max-w-7xl mx-auto px-6 py-12">
-            <h2 class="text-3xl font-bold text-primary mb-6">Featured Sneakers</h2>
+        <section class="max-w-7xl mx-auto px-6 py-16">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-primary mb-4">Featured Sneakers</h2>
+                <p class="text-lg text-subtext max-w-2xl mx-auto">
+                    Handpicked collection of premium sneakers that define style and comfort
+                </p>
+            </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
                 <!-- Nike Dunks: Panda -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 cursor-pointer overflow-hidden"
+                <div class="product-card bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 cursor-pointer overflow-hidden fade-in"
                      onclick="openProductPage('nike-dunks-panda')">
-                    <img src="../shoes/nike-pandas.jpg" alt="Nike Dunks: Panda"
-                         class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg text-primary">Nike Dunks: Panda</h3>
-                        <p class="font-semibold mt-1 text-xl" style="color:#00C853;">$119.00</p>
-                        <p class="text-sm mt-2 text-subtext">Fashionable black and white dunks</p>
-                        <span class="mt-3 inline-block text-xs px-2 py-1 rounded"
-                              style="background-color:#00C853; color:white;">Available</span>
+                    <div class="relative overflow-hidden bg-gray-100">
+                        <img src="/shoes/nike-pandas.jpg" alt="Nike Dunks: Panda"
+                             class="product-image w-full h-64 object-cover"
+                             onerror="this.src='https://placehold.co/400x400?text=Nike+Dunks+Panda'">
+                        <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold text-white" style="background-color:#00C853;">New</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-xl text-primary mb-2">Nike Dunks: Panda</h3>
+                        <p class="font-bold text-2xl mb-2" style="color:#00C853;">$119.00</p>
+                        <p class="text-sm text-subtext mb-3">Fashionable black and white dunks</p>
+                        <div class="flex items-center justify-between">
+                            <span class="inline-block text-xs px-3 py-1 rounded-full font-semibold" style="background-color:#E8F5E9; color:#00C853;">In Stock</span>
+                            <button class="text-accent font-semibold text-sm hover:underline">View Details →</button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Jordan 4s: Red Thunders -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 cursor-pointer overflow-hidden"
+                <div class="product-card bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 cursor-pointer overflow-hidden fade-in"
                      onclick="openProductPage('jordan-4s-red-thunders')">
-                    <img src="../shoes/red-thunders.jpg" alt="Jordan 4s: Red Thunders"
-                         class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg text-primary">Jordan 4s: Red Thunders</h3>
-                        <p class="font-semibold mt-1 text-xl" style="color:#00C853;">$450.99</p>
-                        <p class="text-sm mt-2 text-subtext">Comfortable everyday sneakers</p>
-                        <span class="mt-3 inline-block text-xs px-2 py-1 rounded"
-                              style="background-color:#00C853; color:white;">New Arrival</span>
+                    <div class="relative overflow-hidden bg-gray-100">
+                        <img src="/shoes/red-thunders.jpg" alt="Jordan 4s: Red Thunders"
+                             class="product-image w-full h-64 object-cover"
+                             onerror="this.src='https://placehold.co/400x400?text=Jordan+4s+Red+Thunders'">
+                        <span class="absolute top-3 right-3 px-3 py-1 rounded-full text-xs font-bold text-white bg-cta">Hot</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-xl text-primary mb-2">Jordan 4s: Red Thunders</h3>
+                        <p class="font-bold text-2xl mb-2" style="color:#00C853;">$450.99</p>
+                        <p class="text-sm text-subtext mb-3">Comfortable everyday sneakers</p>
+                        <div class="flex items-center justify-between">
+                            <span class="inline-block text-xs px-3 py-1 rounded-full font-semibold" style="background-color:#FFF3E0; color:#FF9800;">Limited</span>
+                            <button class="text-accent font-semibold text-sm hover:underline">View Details →</button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Jordan 1s: Court Purple -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 cursor-pointer overflow-hidden"
+                <div class="product-card bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 cursor-pointer overflow-hidden fade-in"
                      onclick="openProductPage('jordan-1s-court-purple')">
-                    <img src="../shoes/jordan-1s-purple.jpg" alt="Jordan 1s: Court Purple"
-                         class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg text-primary">Jordan 1s: Court Purple</h3>
-                        <p class="font-semibold mt-1 text-xl" style="color:#00C853;">$79.99</p>
-                        <p class="text-sm mt-2 text-subtext">Stylish High-top shoes</p>
-                        <span class="mt-3 inline-block text-xs px-2 py-1 rounded"
-                              style="background-color:#00C853; color:white;">Available</span>
+                    <div class="relative overflow-hidden bg-gray-100">
+                        <img src="/shoes/jordan-1s-purple.jpg" alt="Jordan 1s: Court Purple"
+                             class="product-image w-full h-64 object-cover"
+                             onerror="this.src='https://placehold.co/400x400?text=Jordan+1s+Court+Purple'">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-xl text-primary mb-2">Jordan 1s: Court Purple</h3>
+                        <p class="font-bold text-2xl mb-2" style="color:#00C853;">$79.99</p>
+                        <p class="text-sm text-subtext mb-3">Stylish High-top shoes</p>
+                        <div class="flex items-center justify-between">
+                            <span class="inline-block text-xs px-3 py-1 rounded-full font-semibold" style="background-color:#E8F5E9; color:#00C853;">In Stock</span>
+                            <button class="text-accent font-semibold text-sm hover:underline">View Details →</button>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Black Air Force 1s -->
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition duration-300 cursor-pointer overflow-hidden"
+                <div class="product-card bg-white rounded-2xl shadow-lg hover:shadow-2xl transition duration-300 cursor-pointer overflow-hidden fade-in"
                      onclick="openProductPage('black-air-force-1s')">
-                    <img src="../shoes/air-force-1s.jpg" alt="Black Air Force 1s"
-                         class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg text-primary">Black Air Force 1s</h3>
-                        <p class="font-semibold mt-1 text-xl" style="color:#00C853;">$99.99</p>
-                        <p class="text-sm mt-2 text-subtext">Opium Type Shoes</p>
-                        <span class="mt-3 inline-block text-xs px-2 py-1 rounded"
-                              style="background-color:#00C853; color:white;">Available</span>
+                    <div class="relative overflow-hidden bg-gray-100">
+                        <img src="/shoes/air-force-1s.jpg" alt="Black Air Force 1s"
+                             class="product-image w-full h-64 object-cover"
+                             onerror="this.src='https://placehold.co/400x400?text=Black+Air+Force+1s'">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-xl text-primary mb-2">Black Air Force 1s</h3>
+                        <p class="font-bold text-2xl mb-2" style="color:#00C853;">$99.99</p>
+                        <p class="text-sm text-subtext mb-3">Classic all-black design</p>
+                        <div class="flex items-center justify-between">
+                            <span class="inline-block text-xs px-3 py-1 rounded-full font-semibold" style="background-color:#E8F5E9; color:#00C853;">In Stock</span>
+                            <button class="text-accent font-semibold text-sm hover:underline">View Details →</button>
+                        </div>
                     </div>
                 </div>
 
+            </div>
+            
+            <!-- View All Button -->
+            <div class="text-center mt-12">
+                <a href="search-products.HTML"
+                   class="inline-block bg-primary text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-800 transform hover:scale-105 transition-all">
+                    View All Sneakers →
+                </a>
             </div>
         </section>
     </main>
 
     <!-- Scripts -->
     <script>
+        // Authentication check - redirect to login if not authenticated
+        document.addEventListener('DOMContentLoaded', () => {
+            const authToken = localStorage.getItem('authToken');
+            if (!authToken) {
+                // Redirect to login page immediately
+                window.location.href = 'user-registration.HTML';
+                return;
+            }
+        });
+        
         // All products for home search suggestions
         const homeProducts = [
             { id: 'nike-dunks-panda',          name: 'Nike Dunks: Panda' },
@@ -253,6 +457,21 @@
         function openProductPage(productId) {
             window.location.href = 'product.html?id=' + encodeURIComponent(productId);
         }
+        
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+            const navLinks = document.getElementById('nav-links');
+            navLinks?.classList.toggle('hidden');
+            navLinks?.classList.toggle('absolute');
+            navLinks?.classList.toggle('top-16');
+            navLinks?.classList.toggle('left-0');
+            navLinks?.classList.toggle('right-0');
+            navLinks?.classList.toggle('bg-primary');
+            navLinks?.classList.toggle('flex-col');
+            navLinks?.classList.toggle('p-4');
+            navLinks?.classList.toggle('space-y-4');
+            navLinks?.classList.toggle('space-x-0');
+        });
     </script>
 
     <script src="nav.js"></script>

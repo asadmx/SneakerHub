@@ -17,14 +17,14 @@ A web application for browsing and purchasing sneakers with complete **order tra
 
 ## 🚀 Quick Start (Full Stack Development)
 
-This is the fastest way to get the **Order Tracking** feature running.
+This is the fastest way to get SneakerHub running locally.
 
 1.  **Install dependencies:**
     ```bash
     npm install
     ```
 
-2.  **Seed the database with sample data:**
+2.  **Seed the database with sample data (recommended):**
     ```bash
     npm run seed
     ```
@@ -34,11 +34,16 @@ This is the fastest way to get the **Order Tracking** feature running.
     npm start
     ```
 
-4.  **Open the front-end:**
-    * Open `src/order-tracking.HTML` in your browser or use the Live Server extension.
+4.  **Open your browser and navigate to:**
+    ```
+    http://localhost:3000
+    ```
+    The homepage will load automatically!
 
-> **Test Login Credentials:**
-> * **Email:** `john.doe@example.com`
+> **📖 For detailed step-by-step setup instructions, see [SETUP_GUIDE.md](SETUP_GUIDE.md)**
+
+> **Test Login Credentials (after seeding):**
+> * **Email:** `demo@sneakerhub.com`
 > * **Password:** `password123`
 
 ---
@@ -99,6 +104,7 @@ This is the fastest way to get the **Order Tracking** feature running.
 * **Server issues?** Make sure you ran `npm start`.
 * **No orders?** Run `npm run seed` to load test data.
 * **Dependencies missing?** Run `npm install`.
+* **Need more help?** See [SETUP_GUIDE.md](SETUP_GUIDE.md) for detailed troubleshooting steps.
 
 ---
 

@@ -16,6 +16,40 @@
         .text-accent { color: #00C853; }
         .hover-text-accent:hover { color: #00C853; }
         .border-accent { border-color: #00C853; }
+        
+        /* Loading spinner animation */
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+        
+        /* Smooth transitions */
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+        
+        .tab-button:hover {
+            background-color: rgba(0, 200, 83, 0.1);
+        }
+        
+        /* Order card animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .order-card {
+            animation: slideInUp 0.5s ease-out;
+        }
     </style>
 </head>
 <body style="background-color: #F5F5F5;">
@@ -43,8 +77,9 @@
                     My Orders
                 </a>
 
-                <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium relative" style="color: rgba(255,255,255,0.85);">
                     My Cart
+                    <span id="cart-badge" class="hidden absolute -top-2 -right-2 bg-cta text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
                 </a>
 
                 <a href="user-registration.HTML" id="login-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
@@ -86,6 +121,11 @@
         <div id="loading-indicator" class="text-center py-12">
             <div class="inline-block animate-spin rounded-full h-12 w-12 border-b-2" style="border-color: #00C853;"></div>
             <p class="mt-4" style="color: #666666;">Loading your orders...</p>
+            <div class="mt-4 flex justify-center space-x-1">
+                <div class="w-2 h-2 bg-accent rounded-full animate-bounce" style="animation-delay: 0s;"></div>
+                <div class="w-2 h-2 bg-accent rounded-full animate-bounce" style="animation-delay: 0.1s;"></div>
+                <div class="w-2 h-2 bg-accent rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+            </div>
         </div>
 
         <!-- Error Message -->

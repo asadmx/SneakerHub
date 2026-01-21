@@ -12,6 +12,25 @@
         .text-primary { color: #222222; }
         .text-subtext { color: #666666; }
         .text-accent { color: #00C853; }
+        
+        /* Smooth animations */
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .cart-item {
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        /* Button hover effects */
+        button:hover {
+            transform: translateY(-1px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -35,8 +54,9 @@
                 <a href="order-tracking.HTML" id="orders-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     My Orders
                 </a>
-                <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
+                <a href="cart.HTML" id="cart-link" class="hover-text-accent font-medium relative" style="color: rgba(255,255,255,0.85);">
                     My Cart
+                    <span id="cart-badge" class="hidden absolute -top-2 -right-2 bg-cta text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">0</span>
                 </a>
                 <a href="user-registration.HTML" id="login-link" class="hover-text-accent font-medium" style="color: rgba(255,255,255,0.85);">
                     Login
@@ -186,7 +206,7 @@
 
             cartItems.forEach((item, index) => {
                 const row = document.createElement('div');
-                row.className = 'flex flex-col md:flex-row items-center justify-between gap-4 border-b pb-4 last:border-b-0';
+                row.className = 'cart-item flex flex-col md:flex-row items-center justify-between gap-4 border-b pb-4 last:border-b-0';
 
                 const infoDiv = document.createElement('div');
                 infoDiv.className = 'flex-1';
@@ -273,6 +293,10 @@
                     saveCart();
                     renderCart();
                     updateTotals();
+                    // Update cart badge
+                    if (typeof updateCartBadge === 'function') {
+                        updateCartBadge();
+                    }
                 });
 
                 rightDiv.appendChild(lineTotalSpan);
@@ -291,14 +315,17 @@
         document.addEventListener('DOMContentLoaded', () => {
             const authToken = localStorage.getItem('authToken');
             if (!authToken) {
-                if (confirm('Please login to view your cart. Go to login page?')) {
-                    window.location.href = 'src/user-registration.HTML';
-                }
+                window.location.href = 'user-registration.HTML';
                 return;
             }
 
             loadCartFromStorage();
             renderCart();
+            
+            // Update cart badge
+            if (typeof updateCartBadge === 'function') {
+                updateCartBadge();
+            }
 
             const clearCartBtn = document.getElementById('clear-cart-btn');
             clearCartBtn.addEventListener('click', () => {
@@ -307,6 +334,10 @@
                     saveCart();
                     renderCart();
                     updateTotals();
+                    // Update cart badge
+                    if (typeof updateCartBadge === 'function') {
+                        updateCartBadge();
+                    }
                 }
             });
 
